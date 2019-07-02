@@ -7,22 +7,24 @@
 //
 
 #import "Tweet.h"
-
+#import "TweetCell.h"
 @implementation Tweet
 
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary {
     //Your dictionary keys have to match the keys from the API exactly. Reference the Tweet API Documentation to ensure they are correct.
     self = [super init];
     if (self) {
-        
         // Is this a re-tweet?
         NSDictionary *originalTweet = dictionary[@"retweeted_status"];
         if(originalTweet != nil){
             NSDictionary *userDictionary = dictionary[@"user"];
             self.retweetedByUser = [[User alloc] initWithDictionary:userDictionary];
-            
             // Change tweet to original tweet
             dictionary = originalTweet;
+            self.retweeted = YES;
+        }
+        else {
+            self.retweeted = NO;
         }
         
 //        NSLog(@"tweet dict is: %@", dictionary);
@@ -31,7 +33,7 @@
         self.favoriteCount = [dictionary[@"favorite_count"] intValue];
         self.favorited = [dictionary[@"favorited"] boolValue];
         self.retweetCount = [dictionary[@"retweet_count"] intValue];
-        self.retweeted = [dictionary[@"retweeted"] boolValue];
+//        self.retweeted = [dictionary[@"retweeted"] boolValue];
         
         //initialize user
         NSDictionary *user = dictionary[@"user"];
