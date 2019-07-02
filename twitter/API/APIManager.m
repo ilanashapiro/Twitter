@@ -7,10 +7,11 @@
 //
 
 #import "APIManager.h"
+#import "Tweet.h"
 
 static NSString * const baseURLString = @"https://api.twitter.com";
-static NSString * const consumerKey = // Enter your consumer key here
-static NSString * const consumerSecret = // Enter your consumer secret here
+static NSString * const consumerKey = @"5lUJuO5AUpPUCez4ewYDFrtgh";
+static NSString * const consumerSecret = @"s5ynGqXzstUZwFPxVyMDkYh197qvHOcVM3kwv1o2TKhS1avCdS";
 
 @interface APIManager()
 
@@ -48,27 +49,45 @@ static NSString * const consumerSecret = // Enter your consumer secret here
 }
 
 - (void)getHomeTimelineWithCompletion:(void(^)(NSArray *tweets, NSError *error))completion {
+    //Open APIManager.m. Before, the method in the starter code used the completion block with an array of dictionaries. We want to modify it to pass an array of Tweets instead.
+    // Create a GET Request
+//    [self GET:@"1.1/statuses/home_timeline.json"
+//   parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSArray *  _Nullable tweetDictionaries) {
+//       // Success
+//       NSMutableArray *tweets  = [Tweet tweetsWithArray:tweetDictionaries];
+//       completion(tweets, nil);
+//   } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+//       // There was a problem
+//       completion(nil, error);
+//   }];
     
     [self GET:@"1.1/statuses/home_timeline.json"
    parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSArray *  _Nullable tweetDictionaries) {
-       
+
        // Manually cache the tweets. If the request fails, restore from cache if possible.
+       NSMutableArray *tweets  = [Tweet tweetsWithArray:tweetDictionaries];
+//       NSLog(@"tweets array from getHomeTimelineWithCompletion is: %@", tweets);
+//       for (Tweet *tweet in tweets) {
+//           //NSString *text = dictionary[@"text"];
+//           NSLog(@"Name: %@. Username: %@. Tweet text: %@", tweet.user.name, tweet.user.screenName, tweet.text);
+//       }
+//       NSLog(@"------------------------------------------------------------------------------------------------------------------------------------------");
        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:tweetDictionaries];
        [[NSUserDefaults standardUserDefaults] setValue:data forKey:@"hometimeline_tweets"];
 
-       completion(tweetDictionaries, nil);
-       
+       completion(tweets, nil);
+
    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-       
-       NSArray *tweetDictionaries = nil;
-       
+
+       NSMutableArray *tweets = nil;
+
        // Fetch tweets from cache if possible
        NSData *data = [[NSUserDefaults standardUserDefaults] valueForKey:@"hometimeline_tweets"];
        if (data != nil) {
-           tweetDictionaries = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+           tweets = [NSKeyedUnarchiver unarchiveObjectWithData:data];
        }
-       
-       completion(tweetDictionaries, error);
+
+       completion(tweets, error);
    }];
 }
 
