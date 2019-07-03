@@ -18,6 +18,35 @@
     // Initialization code
 }
 
+- (void)setTweet:(Tweet *)tweet {
+    _tweet = tweet;
+    
+    self.nameLabel.text = tweet.user.name;
+    self.usernameLabel.text = tweet.user.screenName;
+    self.tweetContentLabel.text = tweet.text;
+    self.dateLabel.text = tweet.createdAtString;
+    self.favoriteCountLabel.text =  [NSString stringWithFormat:@"%i", tweet.favoriteCount];
+    self.retweetCountLabel.text = [NSString stringWithFormat:@"%i", tweet.retweetCount];
+    
+    self.favoriteButton.selected = tweet.favorited;
+    self.retweetButton.selected = tweet.retweeted;
+    
+    NSLog(@"%@ did retweet: %d the user %@.", tweet.retweetedByUser.name, tweet.retweeted, tweet.retweetedByUser.name);
+    if (tweet.retweeted) {
+        self.retweetNameLabel.text = [NSString stringWithFormat: @"%@ %@", tweet.retweetedByUser.name, @"Retweeted"];
+        self.retweetNameLabel.hidden = NO;
+        self.didRetweetButton.hidden = NO;
+    }
+    
+    else {
+        self.retweetNameLabel.hidden = YES;
+        self.didRetweetButton.hidden = YES;
+    }
+    
+    //[self.profileImageView setImageWithURL:tweet.user.profileImageURLHTTPS];
+    
+}
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 
@@ -80,6 +109,9 @@
                 
                 //instructions recommend making an update data method that updates ALL views. I don't see the point of this as I'm only updating one button and one label here??????
                 self.retweetCountLabel.text = [NSString stringWithFormat:@"%d",self.tweet.retweetCount];
+                self.retweetNameLabel.text = [NSString stringWithFormat: @"%@ %@", tweet.retweetedByUser.name, @"Retweeted"];
+                self.retweetNameLabel.hidden = NO;
+                self.didRetweetButton.hidden = NO;
             }
         }];
     }
@@ -98,9 +130,19 @@
                 
                 //instructions recommend making an update data method that updates ALL views. I don't see the point of this as I'm only updating one button and one label here??????
                 self.retweetCountLabel.text = [NSString stringWithFormat:@"%d",self.tweet.retweetCount];
+                
+                self.retweetNameLabel.hidden = YES;
+                self.didRetweetButton.hidden = YES;
             }
         }];
     }
 }
+
+/*
+ UIImage *selectedLike = [UIImage imageNamed:"favor-icon-red.png"]
+ [self.favoriteButton setImage:redLikeButton forState:UIControlStateNormal]
+ 
+  [self.favoriteButton setTitle:[make the title!] forState:UIControlStateNormal]
+ */
 
 @end

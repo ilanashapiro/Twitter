@@ -40,7 +40,7 @@
 //    }];
     
     //3. View controller becomes its (the custom table view cell) dataSource and delegate in viewDidLoad
-    self.tableView.rowHeight = 140;
+    self.tableView.rowHeight = 150;
 //    self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.dataSource = self; //set data source equal to the view controller (self). once you're scrolling and want to show cells, use self for the data source methods
     self.tableView.delegate = self; //set delegate equal to the view controller (self). delegate can help handle touch events, multiselect, swiping, etc if you implement these optional functions
@@ -105,22 +105,29 @@
     Tweet *tweet = self.tweetArray[indexPath.row];
     
     cell.tweet = tweet;
-    cell.nameLabel.text = tweet.user.name;
-    cell.usernameLabel.text = tweet.user.screenName;
-    cell.tweetContentLabel.text = tweet.text;
-    cell.dateLabel.text = tweet.createdAtString;
-    cell.favoriteCountLabel.text =  [NSString stringWithFormat:@"%i", tweet.favoriteCount];
-    cell.retweetCountLabel.text = [NSString stringWithFormat:@"%i", tweet.retweetCount];
-    
-    NSLog(@"%@ did retweet: %d the user %@.", tweet.retweetedByUser.name, tweet.retweeted, tweet.retweetedByUser.name);
-    if (tweet.retweeted) {
-        cell.retweetNameLabel.text = [NSString stringWithFormat: @"%@ %@", tweet.retweetedByUser.name, @"Retweeted"];
-        cell.didRetweetButton.hidden = NO;
-    }
 
-    else {
-        cell.didRetweetButton.hidden = YES;
-    }
+    //------------------------NOW IN TWEETCELL.H------------------------------------------------------------------------------------------------
+//    cell.nameLabel.text = tweet.user.name;
+//    cell.usernameLabel.text = tweet.user.screenName;
+//    cell.tweetContentLabel.text = tweet.text;
+//    cell.dateLabel.text = tweet.createdAtString;
+//    cell.favoriteCountLabel.text =  [NSString stringWithFormat:@"%i", tweet.favoriteCount];
+//    cell.retweetCountLabel.text = [NSString stringWithFormat:@"%i", tweet.retweetCount];
+//
+//    NSLog(@"%@ did retweet: %d the user %@.", tweet.retweetedByUser.name, tweet.retweeted, tweet.retweetedByUser.name);
+//    if (tweet.retweeted) {
+//        cell.retweetNameLabel.text = [NSString stringWithFormat: @"%@ %@", tweet.retweetedByUser.name, @"Retweeted"];
+//        cell.retweetNameLabel.hidden = NO;
+//        cell.didRetweetButton.hidden = NO;
+//        [cell.retweetButton setSelected:YES];
+//    }
+//
+//    else {
+//        cell.retweetNameLabel.hidden = YES;
+//        cell.didRetweetButton.hidden = YES;
+//    }
+//
+        //------------------------------------------------------------------------------------------------------------------------
     
     [cell.profileImageView setImageWithURL:tweet.user.profileImageURLHTTPS];
 //    NSLog(@"Name: %@. Username: %@. Tweet text: %@", tweet.user.name, tweet.user.screenName, tweet.text);
