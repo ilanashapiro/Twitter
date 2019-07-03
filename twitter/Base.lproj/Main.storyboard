@@ -119,11 +119,19 @@
                                                         <accessibilityTraits key="traits" button="YES" image="YES"/>
                                                     </accessibility>
                                                     <state key="normal" title="Button" image="retweet-icon"/>
+                                                    <state key="selected" image="retweet-icon-green"/>
+                                                    <connections>
+                                                        <action selector="didTapRetweet:" destination="am7-l4-Jv0" eventType="touchUpInside" id="rfV-ZQ-onJ"/>
+                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dr4-25-h0N">
                                                     <rect key="frame" x="236" y="86" width="31" height="32"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <state key="normal" title="Button" image="favor-icon"/>
+                                                    <state key="selected" image="favor-icon-red"/>
+                                                    <connections>
+                                                        <action selector="didTapLike:" destination="am7-l4-Jv0" eventType="touchUpInside" id="rwb-xt-hUh"/>
+                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jDf-yN-NHi">
                                                     <rect key="frame" x="308" y="94" width="31" height="26"/>
@@ -234,12 +242,12 @@
                     <navigationItem key="navigationItem" id="lQf-yB-iLB">
                         <barButtonItem key="leftBarButtonItem" image="close-icon" id="Lcd-Pf-sy9">
                             <connections>
-                                <action selector="closeAction:" destination="i9M-Z4-Oqp" id="D3d-T4-ol5"/>
+                                <action selector="didTapClose:" destination="i9M-Z4-Oqp" id="Qts-KU-oZV"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Tweet" id="KWn-Tr-Re7">
                             <connections>
-                                <action selector="tweetAction:" destination="i9M-Z4-Oqp" id="Zth-xe-XHd"/>
+                                <action selector="didTapTweet:" destination="i9M-Z4-Oqp" id="z7h-zC-UtR"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -293,8 +301,10 @@
         <image name="close-icon" width="26" height="24"/>
         <image name="edit-icon" width="30" height="27"/>
         <image name="favor-icon" width="30" height="30"/>
+        <image name="favor-icon-red" width="30" height="30"/>
         <image name="message-icon" width="30" height="30"/>
         <image name="reply-icon" width="30" height="30"/>
         <image name="retweet-icon" width="30" height="30"/>
+        <image name="retweet-icon-green" width="30" height="30"/>
     </resources>
 </document>

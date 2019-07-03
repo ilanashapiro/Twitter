@@ -83,6 +83,7 @@
 
     Tweet *tweet = self.tweetArray[indexPath.row];
     
+    cell.tweet = tweet;
     cell.nameLabel.text = tweet.user.name;
     cell.usernameLabel.text = tweet.user.screenName;
     cell.tweetContentLabel.text = tweet.text;

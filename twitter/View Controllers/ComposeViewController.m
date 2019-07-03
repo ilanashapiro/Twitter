@@ -11,8 +11,11 @@
 
 @interface ComposeViewController ()
 @property (weak, nonatomic) IBOutlet UITextView *tweetTextView;
-- (IBAction)closeAction:(id)sender;
-- (IBAction)tweetAction:(id)sender;
+
+- (IBAction)didTapClose:(id)sender;
+- (IBAction)didTapTweet:(id)sender;
+
+
 
 @end
 
@@ -23,11 +26,11 @@
     // Do any additional setup after loading the view.
 }
 
-- (IBAction)closeAction:(id)sender {
+- (IBAction)didTapClose:(id)sender {
     [self dismissViewControllerAnimated:true completion:nil];
 }
 
-- (IBAction)tweetAction:(id)sender {
+- (IBAction)didTapTweet:(id)sender {
     NSLog(@"%@", self.tweetTextView.text);
     [[APIManager shared]postStatusWithText:self.tweetTextView.text completion:^(Tweet *tweet, NSError *error) {
         if(error){
@@ -50,5 +53,4 @@
     // Pass the selected object to the new view controller.
 }
 */
-
 @end
