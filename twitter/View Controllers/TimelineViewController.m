@@ -15,7 +15,7 @@
 @interface TimelineViewController () <ComposeViewControllerDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (strong, nonatomic) NSMutableArray *tweetArray;
+@property (strong, nonatomic) NSArray *tweetArray;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 
 
@@ -128,7 +128,9 @@
 
 - (void)didTweet:(nonnull Tweet *)tweet {
     NSLog(@"New tweet text is: %@", tweet.text);
-    self.tweetArray = [self.tweetArray insertObject:tweet atIndex:0];
+    
+    NSArray *newTweetArray = [[NSArray alloc] initWithObjects:tweet, nil]; //create array from tweet object in order to add to the front of self.tweetArray
+    self.tweetArray = [newTweetArray arrayByAddingObjectsFromArray:self.tweetArray];
 //    for (id elem in self.tweetArray) {
 //        NSLog(@"%@", elem.text);
 //    }
