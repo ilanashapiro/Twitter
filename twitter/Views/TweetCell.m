@@ -73,13 +73,13 @@
             }
             else{
                 NSLog(@"Successfully retweeted the following Tweet: %@", tweet.text);
-                self.tweet.favorited = YES;
-                [self.favoriteButton setSelected:YES];
-                self.tweet.favoriteCount += 1;
+                self.tweet.retweeted = YES;
+                [self.retweetButton setSelected:YES];
+                self.tweet.retweetCount += 1;
                 //NSLog(@"is favorited: %d, favorite count: %d", self.tweet.favorited, self.tweet.favoriteCount);
                 
                 //instructions recommend making an update data method that updates ALL views. I don't see the point of this as I'm only updating one button and one label here??????
-                self.favoriteCountLabel.text = [NSString stringWithFormat:@"%d",self.tweet.favoriteCount];
+                self.retweetCountLabel.text = [NSString stringWithFormat:@"%d",self.tweet.retweetCount];
             }
         }];
     }
@@ -91,13 +91,13 @@
             }
             else{
                 NSLog(@"Successfully unretweeted the following Tweet: %@", tweet.text);
-                self.tweet.favorited = NO;
-                [self.favoriteButton setSelected:NO];
-                self.tweet.favoriteCount -= 1;
+                self.tweet.retweeted = NO;
+                [self.retweetButton setSelected:NO];
+                self.tweet.retweetCount -= 1;
                 //NSLog(@"is favorited: %d, favorite count: %d", self.tweet.favorited, self.tweet.favoriteCount);
                 
                 //instructions recommend making an update data method that updates ALL views. I don't see the point of this as I'm only updating one button and one label here??????
-                self.favoriteCountLabel.text = [NSString stringWithFormat:@"%d",self.tweet.favoriteCount];
+                self.retweetCountLabel.text = [NSString stringWithFormat:@"%d",self.tweet.retweetCount];
             }
         }];
     }

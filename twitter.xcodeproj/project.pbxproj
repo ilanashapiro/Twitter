@@ -101,8 +101,6 @@
 				6AD278D820BC4B950085BC29 /* AppDelegate.h */,
 				6AD278DE20BC4B950085BC29 /* Main.storyboard */,
 				6AD278D920BC4B950085BC29 /* AppDelegate.m */,
-				47B0EA0922CAD18000733349 /* TweetCell.h */,
-				47B0EA0A22CAD18000733349 /* TweetCell.m */,
 				6AD278E120BC4B970085BC29 /* Assets.xcassets */,
 				6AD278E320BC4B970085BC29 /* LaunchScreen.storyboard */,
 				6AD278E620BC4B970085BC29 /* Info.plist */,
@@ -136,6 +134,8 @@
 		6AD278FF20BCBF280085BC29 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				47B0EA0922CAD18000733349 /* TweetCell.h */,
+				47B0EA0A22CAD18000733349 /* TweetCell.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
