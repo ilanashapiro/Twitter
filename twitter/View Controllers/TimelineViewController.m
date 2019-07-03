@@ -10,11 +10,12 @@
 #import "APIManager.h"
 #import "TweetCell.h"
 #import "UIImageView+AFNetworking.h"
+#import "ComposeViewController.h"
 
-@interface TimelineViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface TimelineViewController () <ComposeViewControllerDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (strong, nonatomic) NSArray *tweetArray;
+@property (strong, nonatomic) NSMutableArray *tweetArray;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
 
 
@@ -68,15 +69,12 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+
+
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     
@@ -115,6 +113,27 @@
 //    NSLog(@"tweetArray is a %@", NSStringFromClass([self.tweetArray class]));
 //    NSLog(@"tweetArray.count is %lu", self.tweetArray.count);
     return self.tweetArray.count;
+}
+
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+    UINavigationController *navigationController = [segue destinationViewController];
+    ComposeViewController *composeController = (ComposeViewController*)navigationController.topViewController;
+    composeController.delegate = self;
+}
+
+- (void)didTweet:(nonnull Tweet *)tweet {
+    NSLog(@"New tweet text is: %@", tweet.text);
+    self.tweetArray = [self.tweetArray insertObject:tweet atIndex:0];
+//    for (id elem in self.tweetArray) {
+//        NSLog(@"%@", elem.text);
+//    }
+//
+    [self.tableView reloadData];
 }
 
 @end
