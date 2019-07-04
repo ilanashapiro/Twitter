@@ -40,7 +40,6 @@
 //    }];
     
     //3. View controller becomes its (the custom table view cell) dataSource and delegate in viewDidLoad
-    self.tableView.rowHeight = 150;
 //    self.tableView.rowHeight = UITableViewAutomaticDimension;
     self.tableView.dataSource = self; //set data source equal to the view controller (self). once you're scrolling and want to show cells, use self for the data source methods
     self.tableView.delegate = self; //set delegate equal to the view controller (self). delegate can help handle touch events, multiselect, swiping, etc if you implement these optional functions

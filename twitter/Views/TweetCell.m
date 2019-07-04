@@ -22,7 +22,7 @@
     _tweet = tweet;
     
     self.nameLabel.text = tweet.user.name;
-    self.usernameLabel.text = tweet.user.screenName;
+    self.usernameLabel.text = [NSString stringWithFormat:@"@%@", tweet.user.screenName];
     self.tweetContentLabel.text = tweet.text;
     self.dateLabel.text = tweet.createdAtString;
     self.favoriteCountLabel.text =  [NSString stringWithFormat:@"%i", tweet.favoriteCount];
@@ -64,12 +64,18 @@
             else{
                 NSLog(@"Successfully favorited the following Tweet: %@", tweet.text);
                 self.tweet.favorited = YES;
+                UIImage *redFavoriteImage = [UIImage imageNamed:@"favor-icon-red.png"];
+                [self.favoriteButton setImage:redFavoriteImage forState:UIControlStateSelected];
+                
                 [self.favoriteButton setSelected:YES];
                 self.tweet.favoriteCount += 1;
                 //NSLog(@"is favorited: %d, favorite count: %d", self.tweet.favorited, self.tweet.favoriteCount);
                 
                 //instructions recommend making an update data method that updates ALL views. I don't see the point of this as I'm only updating one button and one label here??????
                 self.favoriteCountLabel.text = [NSString stringWithFormat:@"%d",self.tweet.favoriteCount];
+                NSString *favoriteCountText = [NSString stringWithFormat:@"%d",self.tweet.favoriteCount];
+                [self.favoriteButton setTitle:favoriteCountText forState:UIControlStateNormal];
+                NSLog(@"%@", favoriteCountText);
             }
         }];
     }
@@ -139,10 +145,11 @@
 }
 
 /*
- UIImage *selectedLike = [UIImage imageNamed:"favor-icon-red.png"]
- [self.favoriteButton setImage:redLikeButton forState:UIControlStateNormal]
+ UIImage *redFavoriteImage = [UIImage imageNamed:"favor-icon-red.png"]
+ [self.favoriteButton setImage:redFavoriteImage forState:UIControlStateSelected]
  
-  [self.favoriteButton setTitle:[make the title!] forState:UIControlStateNormal]
+ NSString favoriteCountText = [NSString stringWithFormat:@"%d",self.tweet.favoriteCount];
+ [self.favoriteButton setTitle:favoriteCountText forState:UIControlStateNormal]
  */
 
 @end
