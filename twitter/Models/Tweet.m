@@ -14,13 +14,14 @@
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary {
     //Your dictionary keys have to match the keys from the API exactly. Reference the Tweet API Documentation to ensure they are correct.
     self = [super init];
-//    NSLog(@"init tweet!");
+    //    NSLog(@"init tweet!");
     if (self) {
+        //NSLog(@"%@", dictionary);
         // Is this a re-tweet?
         NSDictionary *originalTweet = dictionary[@"retweeted_status"];
         NSLog(@"name: %@, retweeted is: %@, retweeted status Y/N: %d", dictionary[@"user"][@"name"], dictionary[@"retweeted"], dictionary[@"retweeted_status"] != nil);
         self.retweeted = [dictionary[@"retweeted"] boolValue];
-    
+        
 //         NSLog(@"retweeted is of type %@", NSStringFromClass([dictionary[@"retweeted"] class]));
         NSLog(@"retweeted: %d", self.retweeted);
         if(originalTweet != nil){
@@ -31,6 +32,7 @@
 //            self.retweeted = YES;
             NSLog(@"Retweeted by %@", self.retweetedByUser.name);
         }
+        
 //        else if (self.retweeted){
 //            NSLog(@"is retweeted %@", dictionary[@"user"][@"name"]);
 //            NSDictionary *userDictionary = dictionary[@"user"];
@@ -63,8 +65,6 @@
         // Convert Date to String
         self.createdAtString = [formatter stringFromDate:date];
         
-        //[self getAuthenticatingUserData];
-        NSLog(@"authenticating user: %@", self.authUser);
 //        NSLog(@"done initializing tweet");
 //        NSLog(@"");
     }
@@ -81,17 +81,5 @@
     return tweets;
 }
 
-- (void)getFinalRetweet{
-    //Update the local model (tweet) properties to reflect it’s been favorited by updating the favorited bool and incrementing the favoriteCount.
-    //NSLog(@"%@", self.tweet);
-    [[APIManager shared] getFinalRetweet:^(Tweet *userData, NSError *error) {
-        if (userData) {
-            NSLog(@"😎😎😎 Successfully loaded auth user data");
-            self.authUser = userData;
-        } else {
-            NSLog(@"😫😫😫 Error getting auth user data: %@", error.localizedDescription);
-        }
-    }];
-}
 
 @end

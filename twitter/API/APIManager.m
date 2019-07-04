@@ -93,9 +93,25 @@ static NSString * const consumerSecret = @"s5ynGqXzstUZwFPxVyMDkYh197qvHOcVM3kwv
    }];
 }
 
-- (void)getFinalRetweet:(void(^)(Tweet *originalTweet, NSError *error))completion {
-    //if tweet.retweetedByUser
-    [self GET:[NSString stringWithFormat:@"https://api.twitter.com/1.1/statuses/show/ + json?include_my_retweet=1"]
+- (void)tweet:(Tweet *)tweet getFinalRetweet:(void(^)(NSDictionary *tweetDict, NSError *error))completion {
+    if(!tweet.retweeted && tweet.retweetedByUser == nil) {
+        return; //can't get final retweet if tweet is not a retweet
+    }
+    
+    NSString *originalTweetID = tweet.idStr; //this is the id str of the original tweet because of how the tweet was originally setup in Tweet class
+    NSString *originalTweetURLString = [NSString stringWithFormat:@"%@%@%@", @"https://api.twitter.com/1.1/statuses/show/", originalTweetID, @".json?include_my_retweet=1"];
+    [self GET:originalTweetURLString
+   parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *  _Nullable tweetDictionary) {
+       // Success
+       //Tweet *tweet = [[Tweet alloc] initWithDictionary:tweetDictionary];
+       completion(tweetDictionary, nil);
+       
+   } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+       // There was a problem
+       completion(nil, error);
+   }];
+    
+    /*[self GET:[NSString stringWithFormat:@"https://api.twitter.com/1.1/statuses/show/ + json?include_my_retweet=1"]
    parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSArray *  _Nullable userDictionaries) {
        
     
@@ -119,8 +135,21 @@ static NSString * const consumerSecret = @"s5ynGqXzstUZwFPxVyMDkYh197qvHOcVM3kwv
        
        //5. API manager calls the completion handler passing back data
        completion(userData, error);
+   }];*/
+}
+
+- (void)getUserCredentialsWithCompletion:(void(^)(NSDictionary *userInfoDict, NSError *error))completion {
+    [self GET:@"1.1/account/verify_credentials.json"
+   parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary * _Nullable userInfoDict) {
+       completion(userInfoDict, nil);
+       
+   } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+       // There was a problem
+       completion(nil, error);
    }];
 }
+
+
 
 
 - (void)postStatusWithText:(NSString *)text completion:(void (^)(Tweet *, NSError *))completion{
@@ -163,8 +192,16 @@ static NSString * const consumerSecret = @"s5ynGqXzstUZwFPxVyMDkYh197qvHOcVM3kwv
 }
 
 - (void)unRetweet:(Tweet *)tweet completion:(void (^)(Tweet *, NSError *))completion{
+//    NSString __block *tweetID = nil;
+//    [self tweet:tweet getFinalRetweet:^(NSDictionary *tweetDict, NSError *error) {
+//        tweetID = tweetDict[@"current_user_retweet"][@"id_str"];
+//    }];
+//    NSLog(@"%@", tweetID);
+//    NSString *urlString = @"https://api.twitter.com/1.1/statuses/destroy.json";
+    
     NSString *urlString = [NSString stringWithFormat:@"1.1/statuses/unretweet/%@.json", tweet.idStr];
     NSDictionary *parameters = @{@"id": tweet.idStr};
+//    NSDictionary *parameters = @{@"id": tweetID};
     [self postRequestTweet:tweet url:urlString parameters:parameters completion:completion];
 //    if(tweet.retweeted) {
 //        return;

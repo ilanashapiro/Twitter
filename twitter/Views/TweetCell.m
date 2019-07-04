@@ -38,11 +38,18 @@
     //NSLog(@"name of user who posted originally: %@, name of user: %@", self.tweet.user.name, self.tweet.retweetedByUser.name);
 
     //NSLog(@"%@ did retweet: %d the user %@.", tweet.retweetedByUser.name, tweet.retweeted, tweet.retweetedByUser.name);
-    if (tweet.retweetedByUser) {
+    if (tweet.retweetedByUser && !tweet.retweeted) {
         //NSLog(@"retweeted! name: %@", tweet.user.name);
         NSString *retweetedText = [NSString stringWithFormat: @"%@ %@", tweet.retweetedByUser.name, @"Retweeted"];
         [self.didRetweetButton setTitle:retweetedText forState:UIControlStateNormal];
         self.didRetweetButton.hidden = NO;
+    }
+    
+    else if (tweet.retweeted) {
+        [self setRetweetLabelNameToAuthUser];
+//        NSString *retweetedText = [NSString stringWithFormat: @"%@ %@", self.tweet.authUserName, @"Retweeted"];
+//        [self.didRetweetButton setTitle:retweetedText forState:UIControlStateNormal];
+//        self.didRetweetButton.hidden = NO;
     }
 
     else {
@@ -160,6 +167,21 @@
             }
         }];
     }
+}
+
+- (void)setRetweetLabelNameToAuthUser {
+    [[APIManager shared] getUserCredentialsWithCompletion:^(NSDictionary *userInfoDict, NSError *error) {
+        if(error){
+            NSLog(@"Error geting authenticated user credentials: %@", error.localizedDescription);
+        }
+        else{
+            NSLog(@"Auth user info is a %@", NSStringFromClass([userInfoDict class]));
+            NSLog(@"Auth user name info in block: %@", userInfoDict[@"name"]);
+            NSString *retweetedText = [NSString stringWithFormat: @"%@ %@", userInfoDict[@"name"], @"Retweeted"];
+            [self.didRetweetButton setTitle:retweetedText forState:UIControlStateNormal];
+            self.didRetweetButton.hidden = NO;
+        }
+    }];
 }
 
 /*
