@@ -17,17 +17,24 @@
     if (self) {
         // Is this a re-tweet?
         NSDictionary *originalTweet = dictionary[@"retweeted_status"];
-        NSLog(@"name: %@, retweeted status Y/N: %d, retweeted status: %@", dictionary[@"user"][@"name"], dictionary[@"retweeted_status"] != nil, dictionary[@"retweeted_status"]);
+        NSLog(@"name: %@, retweeted is: %@, retweeted status Y/N: %d", dictionary[@"user"][@"name"], dictionary[@"retweeted"], dictionary[@"retweeted_status"] != nil);
+        self.retweeted = [dictionary[@"retweeted"] boolValue];
+        
+//         NSLog(@"retweeted is of type %@", NSStringFromClass([dictionary[@"retweeted"] class]));
+        NSLog(@"retweeted: %d", self.retweeted);
         if(originalTweet != nil){
             NSDictionary *userDictionary = dictionary[@"user"];
             self.retweetedByUser = [[User alloc] initWithDictionary:userDictionary];
             // Change tweet to original tweet
             dictionary = originalTweet;
-            self.retweeted = YES;
-            NSLog(@"%@", self.retweetedByUser.name);
+//            self.retweeted = YES;
+            //NSLog(@"%@", self.retweetedByUser.name);
         }
-        else {
-            self.retweeted = NO;
+        else if (self.retweeted){
+            NSLog(@"is retweeted %@", dictionary[@"user"]);
+            NSDictionary *userDictionary = dictionary[@"user"];
+            self.retweetedByUser = [[User alloc] initWithDictionary:userDictionary];
+//            self.retweeted = NO;
         }
         
 //        NSLog(@"tweet dict is: %@", dictionary);
@@ -55,8 +62,8 @@
         // Convert Date to String
         self.createdAtString = [formatter stringFromDate:date];
     
-        NSLog(@"done initializing tweet");
-        NSLog(@"");
+//        NSLog(@"done initializing tweet");
+//        NSLog(@"");
     }
     return self;
 }

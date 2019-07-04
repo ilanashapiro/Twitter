@@ -20,7 +20,7 @@
 
 - (void)setTweet:(Tweet *)tweet {
     _tweet = tweet;
-//    NSLog(@"%@", tweet);
+    NSLog(@"%@", tweet.user.name);
     self.nameLabel.text = tweet.user.name;
     self.usernameLabel.text = [NSString stringWithFormat:@"@%@", tweet.user.screenName];
     self.tweetContentLabel.text = tweet.text;
@@ -35,15 +35,16 @@
 
     self.favoriteButton.selected = tweet.favorited;
 
-    NSLog(@"name of user who posted originally: %@, name of user: %@", self.tweet.user.name, self.tweet.retweetedByUser.name);
+    //NSLog(@"name of user who posted originally: %@, name of user: %@", self.tweet.user.name, self.tweet.retweetedByUser.name);
 
 
-    if (self.tweet.retweeted && [self.tweet.user.name isEqualToString:self.tweet.retweetedByUser.name]) {
+    if (self.tweet.retweeted) {
         self.retweetButton.selected = YES;
     }
 
-    NSLog(@"%@ did retweet: %d the user %@.", tweet.retweetedByUser.name, tweet.retweeted, tweet.retweetedByUser.name);
+    //NSLog(@"%@ did retweet: %d the user %@.", tweet.retweetedByUser.name, tweet.retweeted, tweet.retweetedByUser.name);
     if (tweet.retweeted) {
+        //NSLog(@"retweeted! name: %@", tweet.user.name);
         NSString *retweetedText = [NSString stringWithFormat: @"%@ %@", tweet.retweetedByUser.name, @"Retweeted"];
         [self.didRetweetButton setTitle:retweetedText forState:UIControlStateNormal];
         self.didRetweetButton.hidden = NO;
