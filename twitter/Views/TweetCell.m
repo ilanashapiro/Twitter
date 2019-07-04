@@ -34,16 +34,11 @@
 //    NSLog(@"retweet count text %@", retweetCountText);
 
     self.favoriteButton.selected = tweet.favorited;
-
+    self.retweetButton.selected = tweet.retweeted;
     //NSLog(@"name of user who posted originally: %@, name of user: %@", self.tweet.user.name, self.tweet.retweetedByUser.name);
 
-
-    if (self.tweet.retweeted) {
-        self.retweetButton.selected = YES;
-    }
-
     //NSLog(@"%@ did retweet: %d the user %@.", tweet.retweetedByUser.name, tweet.retweeted, tweet.retweetedByUser.name);
-    if (tweet.retweeted) {
+    if (tweet.retweetedByUser) {
         //NSLog(@"retweeted! name: %@", tweet.user.name);
         NSString *retweetedText = [NSString stringWithFormat: @"%@ %@", tweet.retweetedByUser.name, @"Retweeted"];
         [self.didRetweetButton setTitle:retweetedText forState:UIControlStateNormal];
@@ -64,29 +59,7 @@
     // Configure the view for the selected state
 }
 
-- (IBAction)getAuthenticatingUserData:(id)sender {
-    //Update the local model (tweet) properties to reflect it’s been favorited by updating the favorited bool and incrementing the favoriteCount.
-    //NSLog(@"%@", self.tweet);
-    [[APIManager shared] favorite:self.tweet completion:^(Tweet *tweet, NSError *error) {
-        if(error){
-            NSLog(@"Error favoriting tweet: %@", error.localizedDescription);
-        }
-        else{
-            NSLog(@"Successfully favorited the following Tweet: %@", tweet.text);
-            self.tweet.favorited = YES;
-            UIImage *redFavoriteImage = [UIImage imageNamed:@"favor-icon-red.png"];
-            [self.favoriteButton setImage:redFavoriteImage forState:UIControlStateSelected];
-            
-            [self.favoriteButton setSelected:YES];
-            self.tweet.favoriteCount += 1;
-            //NSLog(@"is favorited: %d, favorite count: %d", self.tweet.favorited, self.tweet.favoriteCount);
-            
-            //instructions recommend making an update data method that updates ALL views. I don't see the point of this as I'm only updating one button and one label here??????
-            NSString *favoriteCountText = [NSString stringWithFormat:@"%d",self.tweet.favoriteCount];
-            [self.favoriteButton setTitle:favoriteCountText forState:UIControlStateNormal];
-            }
-        }];
-}
+
 
 
 - (IBAction)didTapLike:(id)sender {
@@ -173,10 +146,17 @@
                 
                 NSString *retweetCountText = [NSString stringWithFormat:@"%d",self.tweet.retweetCount];
                 [self.retweetButton setTitle:retweetCountText forState:UIControlStateNormal];
-                //NSLog(@"is favorited: %d, favorite count: %d", self.tweet.favorited, self.tweet.favoriteCount);
+                NSLog(@"%@ is unretweeted by all: %d, retweet count: %d", self.tweet.text, self.tweet.retweetedByUser != nil, self.tweet.retweetCount);
+                NSLog(@"%@", self.tweet.retweetedByUser.name);
                 
                 //instructions recommend making an update data method that updates ALL views. I don't see the point of this as I'm only updating one button and one label here??????
-                self.didRetweetButton.hidden = YES;
+                if (self.tweet.retweetedByUser != nil) {
+                    NSString *retweetedText = [NSString stringWithFormat: @"%@ %@", self.tweet.retweetedByUser.name, @"Retweeted"];
+                    [self.didRetweetButton setTitle:retweetedText forState:UIControlStateNormal];
+                }
+                else {
+                    self.didRetweetButton.hidden = YES;
+                }
             }
         }];
     }

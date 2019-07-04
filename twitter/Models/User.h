@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (strong, nonatomic) NSURL *profileImageURLHTTPS;
 
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary;
-
++ (NSMutableArray *)usersWithArray:(NSArray *)dictionaries;
 @end
 
 NS_ASSUME_NONNULL_END

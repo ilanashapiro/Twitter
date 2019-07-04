@@ -8,6 +8,7 @@
 
 #import "Tweet.h"
 #import "TweetCell.h"
+#import "APIManager.h"
 @implementation Tweet
 
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary {
@@ -19,7 +20,7 @@
         NSDictionary *originalTweet = dictionary[@"retweeted_status"];
         NSLog(@"name: %@, retweeted is: %@, retweeted status Y/N: %d", dictionary[@"user"][@"name"], dictionary[@"retweeted"], dictionary[@"retweeted_status"] != nil);
         self.retweeted = [dictionary[@"retweeted"] boolValue];
-        
+    
 //         NSLog(@"retweeted is of type %@", NSStringFromClass([dictionary[@"retweeted"] class]));
         NSLog(@"retweeted: %d", self.retweeted);
         if(originalTweet != nil){
@@ -27,15 +28,15 @@
             self.retweetedByUser = [[User alloc] initWithDictionary:userDictionary];
             // Change tweet to original tweet
             dictionary = originalTweet;
-            self.retweeted = YES;
-            //NSLog(@"%@", self.retweetedByUser.name);
+//            self.retweeted = YES;
+            NSLog(@"Retweeted by %@", self.retweetedByUser.name);
         }
-        else if (self.retweeted){
-            NSLog(@"is retweeted %@", dictionary[@"user"][@"name"]);
-            NSDictionary *userDictionary = dictionary[@"user"];
-            self.retweetedByUser = [[User alloc] initWithDictionary:userDictionary];
+//        else if (self.retweeted){
+//            NSLog(@"is retweeted %@", dictionary[@"user"][@"name"]);
+//            NSDictionary *userDictionary = dictionary[@"user"];
+//            self.retweetedByUser = [[User alloc] initWithDictionary:userDictionary];
 //            self.retweeted = NO;
-        }
+//        }
         
 //        NSLog(@"tweet dict is: %@", dictionary);
         self.idStr = dictionary[@"id_str"];
@@ -61,7 +62,9 @@
         formatter.timeStyle = NSDateFormatterNoStyle;
         // Convert Date to String
         self.createdAtString = [formatter stringFromDate:date];
-    
+        
+        //[self getAuthenticatingUserData];
+        NSLog(@"authenticating user: %@", self.authUser);
 //        NSLog(@"done initializing tweet");
 //        NSLog(@"");
     }
@@ -76,6 +79,19 @@
         [tweets addObject:tweet];
     }
     return tweets;
+}
+
+- (void)getFinalRetweet{
+    //Update the local model (tweet) properties to reflect it’s been favorited by updating the favorited bool and incrementing the favoriteCount.
+    //NSLog(@"%@", self.tweet);
+    [[APIManager shared] getFinalRetweet:^(Tweet *userData, NSError *error) {
+        if (userData) {
+            NSLog(@"😎😎😎 Successfully loaded auth user data");
+            self.authUser = userData;
+        } else {
+            NSLog(@"😫😫😫 Error getting auth user data: %@", error.localizedDescription);
+        }
+    }];
 }
 
 @end

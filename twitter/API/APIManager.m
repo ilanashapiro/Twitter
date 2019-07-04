@@ -93,14 +93,35 @@ static NSString * const consumerSecret = @"s5ynGqXzstUZwFPxVyMDkYh197qvHOcVM3kwv
    }];
 }
 
-- (void)getAuthenticatingUser {
-    [self GET:@"1.1/account/verify_credentials.json" parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSArray *  _Nullable userDictionaries) {
-            return userDictionaries;
-        
-     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-         
-     }];
+- (void)getFinalRetweet:(void(^)(Tweet *originalTweet, NSError *error))completion {
+    //if tweet.retweetedByUser
+    [self GET:[NSString stringWithFormat:@"https://api.twitter.com/1.1/statuses/show/ + json?include_my_retweet=1"]
+   parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSArray *  _Nullable userDictionaries) {
+       
+    
+       NSMutableArray *userData = [User usersWithArray:userDictionaries];
+       
+       NSData *data = [NSKeyedArchiver archivedDataWithRootObject:userDictionaries];
+       [[NSUserDefaults standardUserDefaults] setValue:data forKey:@"auth_user_data"];
+       
+       //5. API manager calls the completion handler passing back data
+       completion(userData, nil);
+       
+   } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+       
+       NSMutableArray *userData = nil;
+       
+       // Fetch tweets from cache if possible
+       NSData *data = [[NSUserDefaults standardUserDefaults] valueForKey:@"auth_user_data"];
+       if (data != nil) {
+           userData = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+       }
+       
+       //5. API manager calls the completion handler passing back data
+       completion(userData, error);
+   }];
 }
+
 
 - (void)postStatusWithText:(NSString *)text completion:(void (^)(Tweet *, NSError *))completion{
     NSString *urlString = @"1.1/statuses/update.json";
@@ -116,7 +137,7 @@ static NSString * const consumerSecret = @"s5ynGqXzstUZwFPxVyMDkYh197qvHOcVM3kwv
 
 - (void)postRequestTweet:(Tweet *)tweet url:(NSString *)urlString parameters:(NSDictionary *)parameters completion:(void (^)(Tweet *, NSError *))completion{
     [self POST:urlString parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *  _Nullable tweetDictionary) {
-            Tweet *tweet = [[Tweet alloc]initWithDictionary:tweetDictionary];
+        Tweet *tweet = [[Tweet alloc]initWithDictionary:tweetDictionary];
             completion(tweet, nil);
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             completion(nil, error);

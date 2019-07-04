@@ -155,7 +155,7 @@
 }
 
 - (void)didTweet:(nonnull Tweet *)tweet {
-    NSLog(@"New tweet text is: %@", tweet.text);
+    //NSLog(@"New tweet text is: %@", tweet.text);
     
     NSArray *newTweetArray = [[NSArray alloc] initWithObjects:tweet, nil]; //create array from tweet object in order to add to the front of self.tweetArray
     self.tweetArray = [newTweetArray arrayByAddingObjectsFromArray:self.tweetArray];
