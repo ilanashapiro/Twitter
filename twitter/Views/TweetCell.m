@@ -38,13 +38,12 @@
     
     NSLog(@"%@ did retweet: %d the user %@.", tweet.retweetedByUser.name, tweet.retweeted, tweet.retweetedByUser.name);
     if (tweet.retweeted) {
-        self.retweetNameLabel.text = [NSString stringWithFormat: @"%@ %@", tweet.retweetedByUser.name, @"Retweeted"];
-        self.retweetNameLabel.hidden = NO;
+        NSString *retweetedText = [NSString stringWithFormat: @"%@ %@", tweet.retweetedByUser.name, @"Retweeted"];
+        [self.didRetweetButton setTitle:retweetedText forState:UIControlStateNormal];
         self.didRetweetButton.hidden = NO;
     }
     
     else {
-        self.retweetNameLabel.hidden = YES;
         self.didRetweetButton.hidden = YES;
     }
     
@@ -121,8 +120,9 @@
                 NSString *retweetCountText = [NSString stringWithFormat:@"%d",self.tweet.retweetCount];
                 [self.retweetButton setTitle:retweetCountText forState:UIControlStateNormal];
                 
-                self.retweetNameLabel.text = [NSString stringWithFormat: @"%@ %@", tweet.retweetedByUser.name, @"Retweeted"];
-                self.retweetNameLabel.hidden = NO;
+                NSString *retweetedText = [NSString stringWithFormat: @"%@ %@", tweet.retweetedByUser.name, @"Retweeted"];
+                [self.didRetweetButton setTitle:retweetedText forState:UIControlStateNormal];
+                NSLog(@"retweeted text: %@", retweetedText);
                 self.didRetweetButton.hidden = NO;
             }
         }];
@@ -138,13 +138,12 @@
                 self.tweet.retweeted = NO;
                 [self.retweetButton setSelected:NO];
                 self.tweet.retweetCount -= 1;
+                
+                NSString *retweetCountText = [NSString stringWithFormat:@"%d",self.tweet.retweetCount];
+                [self.retweetButton setTitle:retweetCountText forState:UIControlStateNormal];
                 //NSLog(@"is favorited: %d, favorite count: %d", self.tweet.favorited, self.tweet.favoriteCount);
                 
                 //instructions recommend making an update data method that updates ALL views. I don't see the point of this as I'm only updating one button and one label here??????
-                NSString *retweetCountText = [NSString stringWithFormat:@"%d",self.tweet.retweetCount];
-                [self.retweetButton setTitle:retweetCountText forState:UIControlStateNormal];
-                
-                self.retweetNameLabel.hidden = YES;
                 self.didRetweetButton.hidden = YES;
             }
         }];
