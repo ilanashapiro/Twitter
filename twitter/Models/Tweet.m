@@ -27,11 +27,11 @@
             self.retweetedByUser = [[User alloc] initWithDictionary:userDictionary];
             // Change tweet to original tweet
             dictionary = originalTweet;
-//            self.retweeted = YES;
+            self.retweeted = YES;
             //NSLog(@"%@", self.retweetedByUser.name);
         }
         else if (self.retweeted){
-            NSLog(@"is retweeted %@", dictionary[@"user"]);
+            NSLog(@"is retweeted %@", dictionary[@"user"][@"name"]);
             NSDictionary *userDictionary = dictionary[@"user"];
             self.retweetedByUser = [[User alloc] initWithDictionary:userDictionary];
 //            self.retweeted = NO;

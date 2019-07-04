@@ -64,6 +64,31 @@
     // Configure the view for the selected state
 }
 
+- (IBAction)getAuthenticatingUserData:(id)sender {
+    //Update the local model (tweet) properties to reflect it’s been favorited by updating the favorited bool and incrementing the favoriteCount.
+    //NSLog(@"%@", self.tweet);
+    [[APIManager shared] favorite:self.tweet completion:^(Tweet *tweet, NSError *error) {
+        if(error){
+            NSLog(@"Error favoriting tweet: %@", error.localizedDescription);
+        }
+        else{
+            NSLog(@"Successfully favorited the following Tweet: %@", tweet.text);
+            self.tweet.favorited = YES;
+            UIImage *redFavoriteImage = [UIImage imageNamed:@"favor-icon-red.png"];
+            [self.favoriteButton setImage:redFavoriteImage forState:UIControlStateSelected];
+            
+            [self.favoriteButton setSelected:YES];
+            self.tweet.favoriteCount += 1;
+            //NSLog(@"is favorited: %d, favorite count: %d", self.tweet.favorited, self.tweet.favoriteCount);
+            
+            //instructions recommend making an update data method that updates ALL views. I don't see the point of this as I'm only updating one button and one label here??????
+            NSString *favoriteCountText = [NSString stringWithFormat:@"%d",self.tweet.favoriteCount];
+            [self.favoriteButton setTitle:favoriteCountText forState:UIControlStateNormal];
+            }
+        }];
+}
+
+
 - (IBAction)didTapLike:(id)sender {
     //Update the local model (tweet) properties to reflect it’s been favorited by updating the favorited bool and incrementing the favoriteCount.
     //NSLog(@"%@", self.tweet);
