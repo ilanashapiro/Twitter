@@ -25,8 +25,13 @@
     self.usernameLabel.text = [NSString stringWithFormat:@"@%@", tweet.user.screenName];
     self.tweetContentLabel.text = tweet.text;
     self.dateLabel.text = tweet.createdAtString;
-    self.favoriteCountLabel.text =  [NSString stringWithFormat:@"%i", tweet.favoriteCount];
-    self.retweetCountLabel.text = [NSString stringWithFormat:@"%i", tweet.retweetCount];
+    
+    NSString *favoriteCountText = [NSString stringWithFormat:@"%d",self.tweet.favoriteCount];
+    [self.favoriteButton setTitle:favoriteCountText forState:UIControlStateNormal];
+    
+    NSString *retweetCountText = [NSString stringWithFormat:@"%d",self.tweet.retweetCount];
+    [self.retweetButton setTitle:retweetCountText forState:UIControlStateNormal];
+    NSLog(@"retweet count text %@", retweetCountText);
     
     self.favoriteButton.selected = tweet.favorited;
     self.retweetButton.selected = tweet.retweeted;
@@ -72,10 +77,8 @@
                 //NSLog(@"is favorited: %d, favorite count: %d", self.tweet.favorited, self.tweet.favoriteCount);
                 
                 //instructions recommend making an update data method that updates ALL views. I don't see the point of this as I'm only updating one button and one label here??????
-                self.favoriteCountLabel.text = [NSString stringWithFormat:@"%d",self.tweet.favoriteCount];
                 NSString *favoriteCountText = [NSString stringWithFormat:@"%d",self.tweet.favoriteCount];
                 [self.favoriteButton setTitle:favoriteCountText forState:UIControlStateNormal];
-                NSLog(@"%@", favoriteCountText);
             }
         }];
     }
@@ -93,7 +96,8 @@
                 //NSLog(@"is favorited: %d, favorite count: %d", self.tweet.favorited, self.tweet.favoriteCount);
                 
                 //instructions recommend making an update data method that updates ALL views. I don't see the point of this as I'm only updating one button and one label here??????
-                self.favoriteCountLabel.text = [NSString stringWithFormat:@"%d",self.tweet.favoriteCount];
+                NSString *favoriteCountText = [NSString stringWithFormat:@"%d",self.tweet.favoriteCount];
+                [self.favoriteButton setTitle:favoriteCountText forState:UIControlStateNormal];
             }
         }];
     }
@@ -114,7 +118,9 @@
                 //NSLog(@"is favorited: %d, favorite count: %d", self.tweet.favorited, self.tweet.favoriteCount);
                 
                 //instructions recommend making an update data method that updates ALL views. I don't see the point of this as I'm only updating one button and one label here??????
-                self.retweetCountLabel.text = [NSString stringWithFormat:@"%d",self.tweet.retweetCount];
+                NSString *retweetCountText = [NSString stringWithFormat:@"%d",self.tweet.retweetCount];
+                [self.retweetButton setTitle:retweetCountText forState:UIControlStateNormal];
+                
                 self.retweetNameLabel.text = [NSString stringWithFormat: @"%@ %@", tweet.retweetedByUser.name, @"Retweeted"];
                 self.retweetNameLabel.hidden = NO;
                 self.didRetweetButton.hidden = NO;
@@ -135,7 +141,8 @@
                 //NSLog(@"is favorited: %d, favorite count: %d", self.tweet.favorited, self.tweet.favoriteCount);
                 
                 //instructions recommend making an update data method that updates ALL views. I don't see the point of this as I'm only updating one button and one label here??????
-                self.retweetCountLabel.text = [NSString stringWithFormat:@"%d",self.tweet.retweetCount];
+                NSString *retweetCountText = [NSString stringWithFormat:@"%d",self.tweet.retweetCount];
+                [self.retweetButton setTitle:retweetCountText forState:UIControlStateNormal];
                 
                 self.retweetNameLabel.hidden = YES;
                 self.didRetweetButton.hidden = YES;

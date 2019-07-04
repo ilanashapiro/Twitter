@@ -117,28 +117,13 @@
                                                     </constraints>
                                                     <state key="normal" title="Button" image="reply-icon"/>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tyz-o2-GtF">
-                                                    <rect key="frame" x="154" y="113.5" width="31" height="30"/>
-                                                    <accessibility key="accessibilityConfiguration">
-                                                        <accessibilityTraits key="traits" button="YES" image="YES"/>
-                                                    </accessibility>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="30" id="0ET-jd-LeC"/>
-                                                        <constraint firstAttribute="width" constant="31" id="sDz-mR-sMl"/>
-                                                    </constraints>
-                                                    <state key="normal" title="Button" image="retweet-icon"/>
-                                                    <state key="selected" image="retweet-icon-green"/>
-                                                    <connections>
-                                                        <action selector="didTapRetweet:" destination="am7-l4-Jv0" eventType="touchUpInside" id="rfV-ZQ-onJ"/>
-                                                    </connections>
-                                                </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dr4-25-h0N">
-                                                    <rect key="frame" x="239" y="117.5" width="61" height="22"/>
+                                                    <rect key="frame" x="239" y="112" width="61" height="28"/>
                                                     <accessibility key="accessibilityConfiguration">
                                                         <accessibilityTraits key="traits" button="YES" image="YES"/>
                                                     </accessibility>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="22" id="f6w-He-DYh"/>
+                                                        <constraint firstAttribute="height" constant="28" id="f6w-He-DYh"/>
                                                         <constraint firstAttribute="width" constant="61" id="ybv-bj-xrg"/>
                                                     </constraints>
                                                     <state key="normal" title="Button" image="favor-icon"/>
@@ -160,13 +145,6 @@
                                                     </constraints>
                                                     <state key="normal" title="Button" image="message-icon"/>
                                                 </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="# retweet" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sa1-0U-pn2">
-                                                    <rect key="frame" x="183" y="118" width="54" height="15"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Wsv-VW-EOr">
                                                     <rect key="frame" x="15" y="5" width="28" height="25"/>
                                                     <accessibility key="accessibilityConfiguration">
@@ -190,23 +168,28 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IOz-A6-9od">
-                                                    <rect key="frame" x="164" y="75" width="84" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <state key="normal" title="Button" image="favor-icon"/>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tyz-o2-GtF">
+                                                    <rect key="frame" x="178" y="111" width="53" height="30"/>
+                                                    <accessibility key="accessibilityConfiguration">
+                                                        <accessibilityTraits key="traits" button="YES" image="YES"/>
+                                                    </accessibility>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="0ET-jd-LeC"/>
+                                                        <constraint firstAttribute="width" constant="53" id="sDz-mR-sMl"/>
+                                                    </constraints>
+                                                    <state key="normal" title="Button" image="retweet-icon">
+                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </state>
+                                                    <state key="selected" image="retweet-icon-green"/>
+                                                    <connections>
+                                                        <action selector="didTapRetweet:" destination="am7-l4-Jv0" eventType="touchUpInside" id="rfV-ZQ-onJ"/>
+                                                    </connections>
                                                 </button>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="# likes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d9S-HQ-IGT">
-                                                    <rect key="frame" x="263" y="94" width="37" height="15"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="feH-lj-ad0" firstAttribute="leading" secondItem="5x3-Of-cpf" secondAttribute="trailing" constant="8" id="0q8-MJ-oNE"/>
-                                                <constraint firstItem="dr4-25-h0N" firstAttribute="centerY" secondItem="ywb-Wx-HAb" secondAttribute="centerY" id="1IJ-c5-rCP"/>
-                                                <constraint firstItem="Tyz-o2-GtF" firstAttribute="centerY" secondItem="ywb-Wx-HAb" secondAttribute="centerY" id="8cA-hy-YHk"/>
+                                                <constraint firstItem="dr4-25-h0N" firstAttribute="centerY" secondItem="ywb-Wx-HAb" secondAttribute="centerY" constant="-2.5" id="1IJ-c5-rCP"/>
+                                                <constraint firstItem="Tyz-o2-GtF" firstAttribute="centerY" secondItem="ywb-Wx-HAb" secondAttribute="centerY" constant="-2.5" id="8cA-hy-YHk"/>
                                                 <constraint firstItem="ADZ-Xa-vJm" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="AkT-5l-n6K" secondAttribute="trailing" constant="8" id="AeK-jz-S2v"/>
                                                 <constraint firstItem="vfT-qB-5lq" firstAttribute="centerY" secondItem="Wsv-VW-EOr" secondAttribute="centerY" id="EYW-A4-u1O"/>
                                                 <constraint firstAttribute="bottom" secondItem="ywb-Wx-HAb" secondAttribute="bottom" constant="10" id="FQf-Tm-VW6"/>
@@ -216,13 +199,13 @@
                                                 <constraint firstItem="AkT-5l-n6K" firstAttribute="firstBaseline" secondItem="Q1v-YO-GjL" secondAttribute="firstBaseline" id="Ozc-La-V5m"/>
                                                 <constraint firstItem="Q1v-YO-GjL" firstAttribute="top" secondItem="5x3-Of-cpf" secondAttribute="top" id="QJg-HQ-7Dn"/>
                                                 <constraint firstItem="AkT-5l-n6K" firstAttribute="leading" secondItem="Q1v-YO-GjL" secondAttribute="trailing" constant="8" id="RWL-Qq-Xwd"/>
-                                                <constraint firstItem="Tyz-o2-GtF" firstAttribute="leading" secondItem="ywb-Wx-HAb" secondAttribute="trailing" constant="8" id="VBU-cB-Obz"/>
+                                                <constraint firstItem="Tyz-o2-GtF" firstAttribute="leading" secondItem="ywb-Wx-HAb" secondAttribute="trailing" constant="32" id="VBU-cB-Obz"/>
                                                 <constraint firstAttribute="trailing" secondItem="ADZ-Xa-vJm" secondAttribute="trailing" constant="15" id="Wog-0Y-GOe"/>
                                                 <constraint firstItem="ywb-Wx-HAb" firstAttribute="top" relation="greaterThanOrEqual" secondItem="feH-lj-ad0" secondAttribute="bottom" constant="10" id="dnp-cf-czi"/>
                                                 <constraint firstItem="ywb-Wx-HAb" firstAttribute="leading" secondItem="5x3-Of-cpf" secondAttribute="trailing" constant="8" id="eYG-dF-86N"/>
                                                 <constraint firstItem="AkT-5l-n6K" firstAttribute="height" secondItem="Q1v-YO-GjL" secondAttribute="height" id="hUD-qU-Wiv"/>
                                                 <constraint firstItem="Q1v-YO-GjL" firstAttribute="leading" secondItem="5x3-Of-cpf" secondAttribute="trailing" constant="8" id="hgE-vu-jzB"/>
-                                                <constraint firstItem="dr4-25-h0N" firstAttribute="leading" secondItem="Tyz-o2-GtF" secondAttribute="trailing" constant="54" id="ig3-0G-gUq"/>
+                                                <constraint firstItem="dr4-25-h0N" firstAttribute="leading" secondItem="Tyz-o2-GtF" secondAttribute="trailing" constant="8" id="ig3-0G-gUq"/>
                                                 <constraint firstItem="vfT-qB-5lq" firstAttribute="leading" secondItem="Wsv-VW-EOr" secondAttribute="trailing" constant="8" id="keV-KM-FoM"/>
                                                 <constraint firstItem="feH-lj-ad0" firstAttribute="top" secondItem="Q1v-YO-GjL" secondAttribute="bottom" constant="6" id="lYx-XA-gXK"/>
                                                 <constraint firstItem="5x3-Of-cpf" firstAttribute="top" secondItem="Wsv-VW-EOr" secondAttribute="bottom" constant="3" id="mz9-oN-jLJ"/>
@@ -241,13 +224,11 @@
                                             <outlet property="dateLabel" destination="ADZ-Xa-vJm" id="CiW-gw-os3"/>
                                             <outlet property="didRetweetButton" destination="Wsv-VW-EOr" id="u0P-SC-kGD"/>
                                             <outlet property="favoriteButton" destination="dr4-25-h0N" id="j4T-g0-TAZ"/>
-                                            <outlet property="favoriteCountLabel" destination="d9S-HQ-IGT" id="Icg-fl-oZG"/>
                                             <outlet property="messageLabel" destination="jDf-yN-NHi" id="V8M-jr-zT3"/>
                                             <outlet property="nameLabel" destination="Q1v-YO-GjL" id="qSZ-Yy-nRz"/>
                                             <outlet property="profileImageView" destination="5x3-Of-cpf" id="AbB-H5-Zz8"/>
                                             <outlet property="replyButton" destination="ywb-Wx-HAb" id="tyq-Bx-H7Y"/>
                                             <outlet property="retweetButton" destination="Tyz-o2-GtF" id="Vze-oy-36H"/>
-                                            <outlet property="retweetCountLabel" destination="sa1-0U-pn2" id="uep-G4-3kI"/>
                                             <outlet property="retweetNameLabel" destination="vfT-qB-5lq" id="iGj-bk-NsB"/>
                                             <outlet property="tweetContentLabel" destination="feH-lj-ad0" id="Cil-p7-OCD"/>
                                             <outlet property="usernameLabel" destination="AkT-5l-n6K" id="j2h-U6-vxa"/>
