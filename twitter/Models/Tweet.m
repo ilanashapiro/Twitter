@@ -13,15 +13,18 @@
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary {
     //Your dictionary keys have to match the keys from the API exactly. Reference the Tweet API Documentation to ensure they are correct.
     self = [super init];
+//    NSLog(@"init tweet!");
     if (self) {
         // Is this a re-tweet?
         NSDictionary *originalTweet = dictionary[@"retweeted_status"];
+        NSLog(@"name: %@, retweeted status Y/N: %d, retweeted status: %@", dictionary[@"user"][@"name"], dictionary[@"retweeted_status"] != nil, dictionary[@"retweeted_status"]);
         if(originalTweet != nil){
             NSDictionary *userDictionary = dictionary[@"user"];
             self.retweetedByUser = [[User alloc] initWithDictionary:userDictionary];
             // Change tweet to original tweet
             dictionary = originalTweet;
             self.retweeted = YES;
+            NSLog(@"%@", self.retweetedByUser.name);
         }
         else {
             self.retweeted = NO;
@@ -51,6 +54,9 @@
         formatter.timeStyle = NSDateFormatterNoStyle;
         // Convert Date to String
         self.createdAtString = [formatter stringFromDate:date];
+    
+        NSLog(@"done initializing tweet");
+        NSLog(@"");
     }
     return self;
 }

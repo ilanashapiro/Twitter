@@ -8,10 +8,10 @@
 
 #import "TweetCell.h"
 #import "APIManager.h"
+#import "UIImageView+AFNetworking.h"
+
 
 @implementation TweetCell
-
-
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -20,35 +20,41 @@
 
 - (void)setTweet:(Tweet *)tweet {
     _tweet = tweet;
-    
+//    NSLog(@"%@", tweet);
     self.nameLabel.text = tweet.user.name;
     self.usernameLabel.text = [NSString stringWithFormat:@"@%@", tweet.user.screenName];
     self.tweetContentLabel.text = tweet.text;
     self.dateLabel.text = tweet.createdAtString;
-    
+
     NSString *favoriteCountText = [NSString stringWithFormat:@"%d",self.tweet.favoriteCount];
     [self.favoriteButton setTitle:favoriteCountText forState:UIControlStateNormal];
-    
+
     NSString *retweetCountText = [NSString stringWithFormat:@"%d",self.tweet.retweetCount];
     [self.retweetButton setTitle:retweetCountText forState:UIControlStateNormal];
-    NSLog(@"retweet count text %@", retweetCountText);
-    
+//    NSLog(@"retweet count text %@", retweetCountText);
+
     self.favoriteButton.selected = tweet.favorited;
-    self.retweetButton.selected = tweet.retweeted;
-    
+
+    NSLog(@"name of user who posted originally: %@, name of user: %@", self.tweet.user.name, self.tweet.retweetedByUser.name);
+
+
+    if (self.tweet.retweeted && [self.tweet.user.name isEqualToString:self.tweet.retweetedByUser.name]) {
+        self.retweetButton.selected = YES;
+    }
+
     NSLog(@"%@ did retweet: %d the user %@.", tweet.retweetedByUser.name, tweet.retweeted, tweet.retweetedByUser.name);
     if (tweet.retweeted) {
         NSString *retweetedText = [NSString stringWithFormat: @"%@ %@", tweet.retweetedByUser.name, @"Retweeted"];
         [self.didRetweetButton setTitle:retweetedText forState:UIControlStateNormal];
         self.didRetweetButton.hidden = NO;
     }
-    
+
     else {
         self.didRetweetButton.hidden = YES;
     }
-    
-    //[self.profileImageView setImageWithURL:tweet.user.profileImageURLHTTPS];
-    
+
+    [self.profileImageView setImageWithURL:tweet.user.profileImageURLHTTPS];
+
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -122,7 +128,7 @@
                 
                 NSString *retweetedText = [NSString stringWithFormat: @"%@ %@", tweet.retweetedByUser.name, @"Retweeted"];
                 [self.didRetweetButton setTitle:retweetedText forState:UIControlStateNormal];
-                NSLog(@"retweeted text: %@", retweetedText);
+                //NSLog(@"retweeted text: %@", retweetedText);
                 self.didRetweetButton.hidden = NO;
             }
         }];

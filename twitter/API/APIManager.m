@@ -67,10 +67,10 @@ static NSString * const consumerSecret = @"s5ynGqXzstUZwFPxVyMDkYh197qvHOcVM3kwv
     // Manually cache the tweets. If the request fails, restore from cache if possible.
     NSMutableArray *tweets  = [Tweet tweetsWithArray:tweetDictionaries];
 //       NSLog(@"tweets array from getHomeTimelineWithCompletion is: %@", tweets);
-//       for (Tweet *tweet in tweets) {
-//           //NSString *text = dictionary[@"text"];
-//           NSLog(@"Name: %@. Username: %@. Tweet text: %@", tweet.user.name, tweet.user.screenName, tweet.text);
-//       }
+       //for (Tweet *tweet in tweets) {
+           //NSString *text = dictionary[@"text"];
+           //NSLog(@"Name: %@. Username: %@. Tweet text: %@. Retweeted by user: %d. Liked by user: %d.", tweet.user.name, tweet.user.screenName, tweet.text, tweet.retweeted, tweet.favorited);
+       //}
 //       NSLog(@"------------------------------------------------------------------------------------------------------------------------------------------");
        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:tweetDictionaries];
        [[NSUserDefaults standardUserDefaults] setValue:data forKey:@"hometimeline_tweets"];

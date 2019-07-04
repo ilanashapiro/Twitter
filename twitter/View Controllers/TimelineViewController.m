@@ -128,7 +128,7 @@
 //
         //------------------------------------------------------------------------------------------------------------------------
     
-    [cell.profileImageView setImageWithURL:tweet.user.profileImageURLHTTPS];
+//    [cell.profileImageView setImageWithURL:tweet.user.profileImageURLHTTPS];
 //    NSLog(@"Name: %@. Username: %@. Tweet text: %@", tweet.user.name, tweet.user.screenName, tweet.text);
 
     return cell;
