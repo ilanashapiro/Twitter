@@ -13,6 +13,7 @@
 #import "ComposeViewController.h"
 #import "AppDelegate.h"
 #import "LoginViewController.h"
+#import "DetailsViewController.h"
 
 @interface TimelineViewController () <ComposeViewControllerDelegate, UITableViewDataSource, UITableViewDelegate>
 
@@ -149,9 +150,25 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
-    UINavigationController *navigationController = [segue destinationViewController];
-    ComposeViewController *composeController = (ComposeViewController*)navigationController.topViewController;
-    composeController.delegate = self;
+    if ([segue.identifier isEqualToString:@"segueToDetails"]) {
+        UITableViewCell *tappedCell = sender;
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];
+        Tweet *tweet = self.tweetArray[indexPath.row];
+        
+        //code to make cell change color when tapped. although it'll need code to tell it to go back to normal after you go back.
+//        UIView *backgroundView = [[UIView alloc] init];
+//        backgroundView.backgroundColor = UIColor.yellowColor;
+//        tappedCell.selectedBackgroundView = backgroundView;
+        
+        DetailsViewController *detailsViewController = [segue destinationViewController]; //returns a UIViewController, which DetailsViewController is a subclass of
+        detailsViewController.tweet = tweet;
+        NSLog(@"Tapping on a tweet!");
+    }
+    else if ([segue.identifier isEqualToString:@"segueToCompose"]) {
+        UINavigationController *navigationController = [segue  destinationViewController];
+        ComposeViewController *composeController = (ComposeViewController*)navigationController.topViewController;
+        composeController.delegate = self;
+    }
 }
 
 - (void)didTweet:(nonnull Tweet *)tweet {

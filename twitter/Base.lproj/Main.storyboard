@@ -228,6 +228,7 @@
                                             <outlet property="retweetButton" destination="Tyz-o2-GtF" id="Vze-oy-36H"/>
                                             <outlet property="tweetContentLabel" destination="feH-lj-ad0" id="Cil-p7-OCD"/>
                                             <outlet property="usernameLabel" destination="AkT-5l-n6K" id="j2h-U6-vxa"/>
+                                            <segue destination="QkQ-B0-ekk" kind="show" identifier="segueToDetails" id="bfZ-GX-vBO"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -250,7 +251,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="edit-icon" id="mn1-Ah-WjW">
                             <connections>
-                                <segue destination="W9e-rM-Mm8" kind="presentation" id="QC9-Uo-B0x"/>
+                                <segue destination="W9e-rM-Mm8" kind="presentation" identifier="segueToCompose" id="QC9-Uo-B0x"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -313,7 +314,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PBJ-4I-4p0" userLabel="Content View">
-                                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Jane Doe" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Nb-JR-8CF">
                                                 <rect key="frame" x="117" y="35" width="59" height="16"/>
@@ -450,6 +451,17 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="kzn-KB-a6g"/>
                     </view>
+                    <connections>
+                        <outlet property="dateLabel" destination="mfu-Uq-37H" id="h9s-1b-ffg"/>
+                        <outlet property="didRetweetButton" destination="R9v-oP-YZF" id="Wop-0L-wPm"/>
+                        <outlet property="favoriteButton" destination="Zc8-7t-aBH" id="oq2-CM-JMp"/>
+                        <outlet property="messageLabel" destination="O0p-HJ-jhe" id="2cx-ma-kUW"/>
+                        <outlet property="nameLabel" destination="6Nb-JR-8CF" id="g7v-k6-bd9"/>
+                        <outlet property="profileImageView" destination="br4-mN-A3i" id="jy6-4Z-ElM"/>
+                        <outlet property="replyButton" destination="71h-K1-aSj" id="nwC-Ud-l0B"/>
+                        <outlet property="retweetButton" destination="FaL-sj-vme" id="U0C-Kw-C7Q"/>
+                        <outlet property="usernameLabel" destination="TPj-of-E1O" id="MwZ-95-r5d"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tAy-GJ-sL6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
