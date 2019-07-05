@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "DetailsViewController.h"
 
-@interface TimelineViewController : UIViewController <DataEnteredDelegate>
+@interface TimelineViewController : UIViewController
+
+@property (weak, nonatomic) IBOutlet UITableView *tableView;  //1. View controller has a tableView as a subview
+@property (strong, nonatomic) NSArray *tweetArray;
 
 @end

@@ -14,12 +14,14 @@
 #import "AppDelegate.h"
 #import "LoginViewController.h"
 #import "DetailsViewController.h"
+#import "ReplyViewController.h"
+//#import "InfiniteScrollActivityView.h"
+//#import "UIScrollView+SVInfiniteScrolling.h"
 
-@interface TimelineViewController () <ComposeViewControllerDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface TimelineViewController () <ComposeViewControllerDelegate, ReplyViewControllerDelegate, DetailsViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, UIScrollViewDelegate>
 
-@property (weak, nonatomic) IBOutlet UITableView *tableView;  //1. View controller has a tableView as a subview
-@property (strong, nonatomic) NSArray *tweetArray;
 @property (nonatomic, strong) UIRefreshControl *refreshControl;
+//@property (assign, nonatomic) BOOL isMoreDataLoading;
 
 - (IBAction)didTapLogout:(id)sender;
 
@@ -47,6 +49,27 @@
     
     [self getTimeline];
     [self createRefreshControl];
+    
+    
+    // Set up Infinite Scroll loading indicator
+    /*CGRect frame = CGRectMake(0, self.tableView.contentSize.height, self.tableView.bounds.size.width, InfiniteScrollActivityView.defaultHeight);
+    InfiniteScrollActivityView *loadingMoreView = [[InfiniteScrollActivityView alloc] initWithFrame:frame];
+    loadingMoreView.hidden = true;
+    [self.tableView addSubview:loadingMoreView];
+    
+    UIEdgeInsets insets = self.tableView.contentInset;
+    insets.bottom += InfiniteScrollActivityView.defaultHeight;
+    self.tableView.contentInset = insets;*/
+    
+//    [self.tableView triggerInfiniteScrolling];
+//
+//    [self.tableView addInfiniteScrollingWithActionHandler:^{
+//        // append data to data source, insert new cells at the end of table view
+//        // call [tableView.infiniteScrollingView stopAnimating] when done
+//        [self.tableView reloadData];
+//        [self.tableView.infiniteScrollingView stopAnimating];
+//    }];
+    
 }
 
 - (void)getTimeline {
@@ -89,49 +112,14 @@
     // Dispose of any resources that can be recreated.
 }
 
-
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-
-
-
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
     //10. cellForRow returns an instance of the custom cell with that reuse identifier with it’s elements populated with data at the index asked for
     
     TweetCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TweetCell"];
-//    TweetCell *cell = [[TweetCell alloc] init];
 
     Tweet *tweet = self.tweetArray[indexPath.row];
-    
     cell.tweet = tweet;
-
-    //------------------------NOW IN TWEETCELL.H------------------------------------------------------------------------------------------------
-//    cell.nameLabel.text = tweet.user.name;
-//    cell.usernameLabel.text = tweet.user.screenName;
-//    cell.tweetContentLabel.text = tweet.text;
-//    cell.dateLabel.text = tweet.createdAtString;
-//    cell.favoriteCountLabel.text =  [NSString stringWithFormat:@"%i", tweet.favoriteCount];
-//    cell.retweetCountLabel.text = [NSString stringWithFormat:@"%i", tweet.retweetCount];
-//
-//    NSLog(@"%@ did retweet: %d the user %@.", tweet.retweetedByUser.name, tweet.retweeted, tweet.retweetedByUser.name);
-//    if (tweet.retweeted) {
-//        cell.retweetNameLabel.text = [NSString stringWithFormat: @"%@ %@", tweet.retweetedByUser.name, @"Retweeted"];
-//        cell.retweetNameLabel.hidden = NO;
-//        cell.didRetweetButton.hidden = NO;
-//        [cell.retweetButton setSelected:YES];
-//    }
-//
-//    else {
-//        cell.retweetNameLabel.hidden = YES;
-//        cell.didRetweetButton.hidden = YES;
-//    }
-//
-        //------------------------------------------------------------------------------------------------------------------------
     
-//    [cell.profileImageView setImageWithURL:tweet.user.profileImageURLHTTPS];
-//    NSLog(@"Name: %@. Username: %@. Tweet text: %@", tweet.user.name, tweet.user.screenName, tweet.text);
-
     return cell;
 }
 
@@ -167,9 +155,16 @@
         NSLog(@"Tapping on a tweet!");
     }
     else if ([segue.identifier isEqualToString:@"segueToCompose"]) {
-        UINavigationController *navigationController = [segue  destinationViewController];
+        UINavigationController *navigationController = [segue destinationViewController];
         ComposeViewController *composeController = (ComposeViewController*)navigationController.topViewController;
         composeController.delegate = self;
+    }
+    
+    else if ([segue.identifier isEqualToString:@"segueToReply"]) {
+        UINavigationController *navigationController = [segue destinationViewController];
+        ReplyViewController *replyController = (ReplyViewController *)navigationController.topViewController;
+        replyController.delegate = self;
+        replyController.tweetReplyingTo = self.tweetArray[self.tableView.indexPathForSelectedRow.row];
     }
 }
 
@@ -196,7 +191,62 @@
 }
 
 - (void)updateData:(nonnull UIViewController *)viewController {
+    //delegate protocol method for DetailsViewController
     [self.tableView reloadData];
+}
+
+/*-(void)loadMoreData{
+    // ... Create the NSURLRequest (myRequest) ...
+    NSURLRequest *request = [NSURLRequest requestWithURL:@"1.1/statuses/home_timeline.json"];
+    // Configure session so that completion handler is executed on main UI thread
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    
+    NSURLSession *session  = [NSURLSession sessionWithConfiguration:configuration delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
+    
+    NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *requestError) {
+        if (requestError != nil) {
+            
+        }
+        else
+        {
+            // Update flag
+            self.isMoreDataLoading = false;
+ 
+            // Stop the loading indicator
+            [loadingMoreView stopAnimating];
+
+            // Reload the tableView now that there is new data
+            [self.tableView reloadData];
+        }
+    }];
+    [task resume];
+}*/
+
+/*- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    if(!self.isMoreDataLoading){
+        self.isMoreDataLoading = true;
+    }
+    
+    // Calculate the position of one screen length before the bottom of the results
+    int scrollViewContentHeight = self.tableView.contentSize.height;
+    int scrollOffsetThreshold = scrollViewContentHeight - self.tableView.bounds.size.height;
+    
+    // When the user has scrolled past the threshold, start requesting
+    if(scrollView.contentOffset.y > scrollOffsetThreshold && self.tableView.isDragging) {
+        self.isMoreDataLoading = true;
+        
+        // Update position of loadingMoreView, and start loading indicator
+        CGRect frame = CGRectMake(0, self.tableView.contentSize.height, self.tableView.bounds.size.width, InfiniteScrollActivityView.defaultHeight);
+        loadingMoreView.frame = frame;
+        [loadingMoreView startAnimating];
+        
+         // Code to load more results
+        [self loadMoreData];
+    }
+}*/
+
+- (void)didReply:(nonnull Tweet *)tweet {
+    
 }
 
 @end

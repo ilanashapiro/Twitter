@@ -169,6 +169,34 @@
     }
 }
 
+/*- (void)didTapReply {
+    [[APIManager shared] replyToTweet:self.tweet withText: completion:^(Tweet *tweet, NSError *error) {
+        if(error){
+            NSLog(@"Error retweeting tweet: %@", error.localizedDescription);
+        }
+        else{
+            NSLog(@"Successfully unretweeted the following Tweet: %@", tweet.text);
+            self.tweet.retweeted = NO;
+            [self.retweetButton setSelected:NO];
+            self.tweet.retweetCount -= 1;
+            
+            NSString *retweetCountText = [NSString stringWithFormat:@"%d",self.tweet.retweetCount];
+            [self.retweetButton setTitle:retweetCountText forState:UIControlStateNormal];
+            NSLog(@"%@ is unretweeted by all: %d, retweet count: %d", self.tweet.text, self.tweet.retweetedByUser != nil, self.tweet.retweetCount);
+            NSLog(@"%@", self.tweet.retweetedByUser.name);
+            
+            //instructions recommend making an update data method that updates ALL views. I don't see the point of this as I'm only updating one button and one label here??????
+            if (self.tweet.retweetedByUser != nil) {
+                NSString *retweetedText = [NSString stringWithFormat: @"%@ %@", self.tweet.retweetedByUser.name, @"Retweeted"];
+                [self.didRetweetButton setTitle:retweetedText forState:UIControlStateNormal];
+            }
+            else {
+                self.didRetweetButton.hidden = YES;
+            }
+        }
+    }];
+}*/
+
 - (void)setRetweetLabelNameToAuthUser {
     [[APIManager shared] getUserCredentialsWithCompletion:^(NSDictionary *userInfoDict, NSError *error) {
         if(error){

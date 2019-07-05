@@ -9,10 +9,10 @@
 #import "DetailsViewController.h"
 #import "APIManager.h"
 #import "UIImageView+AFNetworking.h"
+#import "ReplyViewController.h"
 
 
-
-@interface DetailsViewController ()
+@interface DetailsViewController () <ReplyViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *profileImageView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
@@ -27,6 +27,7 @@
 
 - (IBAction)didTapRetweet:(id)sender;
 - (IBAction)didTapLike:(id)sender;
+- (IBAction)didTapReply:(id)sender;
 
 
 @end
@@ -121,6 +122,9 @@
     }
 }
 
+- (IBAction)didTapReply:(id)sender {
+}
+
 - (IBAction)didTapRetweet:(id)sender {
     if (!self.tweet.retweeted) {
         [[APIManager shared] retweet:self.tweet completion:^(Tweet *tweet, NSError *error) {
@@ -185,14 +189,26 @@
     }];
 }
 
-/*
+
 #pragma mark - Navigation
 
- In a storyboard-based application, you will often want to do a little preparation before navigation
+// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-     Get the new view controller using [segue destinationViewController].
-     Pass the selected object to the new view controller.
+//     Get the new view controller using [segue destinationViewController].
+//     Pass the selected object to the new view controller.
+    if ([segue.identifier isEqualToString:@"segueToReply"]) {
+        NSLog(@"Tweet to reply to is: %@", self.tweet.text);
+        UINavigationController *navigationController = [segue destinationViewController];
+        ReplyViewController *replyController = (ReplyViewController *)navigationController.topViewController;
+        replyController.delegate = self;
+        replyController.tweetReplyingTo = self.tweet;
+        
+    }
 }
-*/
+
+
+- (void)didReply:(nonnull Tweet *)tweet {
+    
+}
 
 @end

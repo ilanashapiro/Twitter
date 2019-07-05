@@ -116,6 +116,9 @@
                                                         <constraint firstAttribute="width" constant="24" id="wc7-qf-t2c"/>
                                                     </constraints>
                                                     <state key="normal" title="Button" image="reply-icon"/>
+                                                    <connections>
+                                                        <segue destination="QCV-Ju-b8F" kind="presentation" identifier="segueToReply" id="O4n-em-goB"/>
+                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dr4-25-h0N">
                                                     <rect key="frame" x="234" y="112" width="61" height="28"/>
@@ -263,6 +266,45 @@
             </objects>
             <point key="canvasLocation" x="1660" y="36.431784107946029"/>
         </scene>
+        <!--Reply View Controller-->
+        <scene sceneID="lEu-Ju-AJ4">
+            <objects>
+                <viewController id="6gD-Lu-guP" customClass="ReplyViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="TQW-9g-pkY">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="lFd-K0-BWq">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="15"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="UxR-5L-rct"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="8tf-YA-Mz8">
+                        <barButtonItem key="leftBarButtonItem" title="Item" image="close-icon" id="0dX-Xq-Nfj">
+                            <connections>
+                                <action selector="didTapClose:" destination="6gD-Lu-guP" id="NK0-Qb-5g0"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Item" image="reply-icon" id="56L-gy-dFb">
+                            <connections>
+                                <action selector="didTapReply:" destination="6gD-Lu-guP" id="OBB-Cm-IWr"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="replyTextView" destination="lFd-K0-BWq" id="pQv-9i-6ru"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5bA-gD-F5m" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3508" y="-704"/>
+        </scene>
         <!--Compose View Controller-->
         <scene sceneID="Xso-Ld-ryq">
             <objects>
@@ -275,7 +317,7 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="15"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                         </subviews>
@@ -338,6 +380,10 @@
                                                     <constraint firstAttribute="width" constant="24" id="Wq3-NI-Bo5"/>
                                                 </constraints>
                                                 <state key="normal" image="reply-icon"/>
+                                                <connections>
+                                                    <action selector="didTapReply:" destination="QkQ-B0-ekk" eventType="touchUpInside" id="bNV-lq-0bb"/>
+                                                    <segue destination="QCV-Ju-b8F" kind="presentation" identifier="segueToReply" id="6qf-yf-yYT"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zc8-7t-aBH" userLabel="Favorite Button">
                                                 <rect key="frame" x="234" y="101" width="61" height="28"/>
@@ -483,7 +529,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tAy-GJ-sL6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1858" y="952"/>
+            <point key="canvasLocation" x="3508" y="-1878"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="WUT-Ke-VeR">
@@ -521,6 +567,24 @@
             </objects>
             <point key="canvasLocation" x="2570" y="36"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="7Bu-7K-jMN">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="29Y-VX-kb3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="QCV-Ju-b8F" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="joM-dM-S6b">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="6gD-Lu-guP" kind="relationship" relationship="rootViewController" id="TRQ-Zz-enW"/>
+                    </connections>
+                </navigationController>
+            </objects>
+            <point key="canvasLocation" x="2569" y="-704"/>
+        </scene>
     </scenes>
     <resources>
         <image name="TwitterLogoBlue" width="200" height="200"/>
@@ -533,4 +597,7 @@
         <image name="retweet-icon" width="30" height="30"/>
         <image name="retweet-icon-green" width="30" height="30"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="6qf-yf-yYT"/>
+    </inferredMetricsTieBreakers>
 </document>
