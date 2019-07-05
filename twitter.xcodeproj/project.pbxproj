@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -11,6 +11,7 @@
 		47B0EA0522CAC84E00733349 /* Tweet.m in Sources */ = {isa = PBXBuildFile; fileRef = 47B0EA0422CAC84E00733349 /* Tweet.m */; };
 		47B0EA0B22CAD18000733349 /* TweetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 47B0EA0A22CAD18000733349 /* TweetCell.m */; };
 		47D710C322CC145B000AB67D /* ComposeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 47D710C222CC145B000AB67D /* ComposeViewController.m */; };
+		47D710C622CECF48000AB67D /* DetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 47D710C522CECF48000AB67D /* DetailsViewController.m */; };
 		557D7B17F5D2B5715B705AA9 /* libPods-twitter.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 43D6142D6F34C1AE98EE4951 /* libPods-twitter.a */; };
 		6AD278DA20BC4B950085BC29 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AD278D920BC4B950085BC29 /* AppDelegate.m */; };
 		6AD278E020BC4B950085BC29 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6AD278DE20BC4B950085BC29 /* Main.storyboard */; };
@@ -34,6 +35,8 @@
 		47B0EA0A22CAD18000733349 /* TweetCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TweetCell.m; sourceTree = "<group>"; };
 		47D710C122CC145B000AB67D /* ComposeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ComposeViewController.h; sourceTree = "<group>"; };
 		47D710C222CC145B000AB67D /* ComposeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ComposeViewController.m; sourceTree = "<group>"; };
+		47D710C422CECF48000AB67D /* DetailsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailsViewController.h; sourceTree = "<group>"; };
+		47D710C522CECF48000AB67D /* DetailsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailsViewController.m; sourceTree = "<group>"; };
 		6AD278D520BC4B950085BC29 /* twitter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = twitter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6AD278D820BC4B950085BC29 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		6AD278D920BC4B950085BC29 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -149,6 +152,8 @@
 				6AD2790520BCC0380085BC29 /* LoginViewController.m */,
 				6AD2790720BCC04D0085BC29 /* TimelineViewController.h */,
 				6AD2790820BCC04D0085BC29 /* TimelineViewController.m */,
+				47D710C422CECF48000AB67D /* DetailsViewController.h */,
+				47D710C522CECF48000AB67D /* DetailsViewController.m */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -173,6 +178,7 @@
 				6AD278D120BC4B950085BC29 /* Sources */,
 				6AD278D220BC4B950085BC29 /* Frameworks */,
 				6AD278D320BC4B950085BC29 /* Resources */,
+				08AF760985B32614E7C2F5AC /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -229,6 +235,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		08AF760985B32614E7C2F5AC /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-twitter/Pods-twitter-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-twitter/Pods-twitter-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-twitter/Pods-twitter-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		2753FB299E6FD685DF7178D7 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -256,6 +279,7 @@
 			files = (
 				47B0EA0B22CAD18000733349 /* TweetCell.m in Sources */,
 				6AD278F320BCA6020085BC29 /* BDBOAuth1SessionManager+SFAuthenticationSession.m in Sources */,
+				47D710C622CECF48000AB67D /* DetailsViewController.m in Sources */,
 				47B0EA0222CAC73800733349 /* User.m in Sources */,
 				47D710C322CC145B000AB67D /* ComposeViewController.m in Sources */,
 				6AD278E820BC4B970085BC29 /* main.m in Sources */,
