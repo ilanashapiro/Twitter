@@ -24,7 +24,7 @@
     self.nameLabel.text = tweet.user.name;
     self.usernameLabel.text = [NSString stringWithFormat:@"@%@", tweet.user.screenName];
     self.tweetContentLabel.text = tweet.text;
-    self.dateLabel.text = tweet.createdAtString;
+    self.dateLabel.text = [NSString stringWithFormat:@"· %@", tweet.createdAtString];
 
     NSString *favoriteCountText = [NSString stringWithFormat:@"%d",self.tweet.favoriteCount];
     [self.favoriteButton setTitle:favoriteCountText forState:UIControlStateNormal];

@@ -10,10 +10,17 @@
 #import "Tweet.h"
 
 NS_ASSUME_NONNULL_BEGIN
+@protocol DataEnteredDelegate <NSObject>
+
+- (void)updateData:(UIViewController *)viewController;
+
+@end
+
 
 @interface DetailsViewController : UIViewController
 
 @property (nonatomic, strong) Tweet *tweet;
+@property (nonatomic, weak) id<DataEnteredDelegate> delegate;
 
 @end
 

@@ -15,8 +15,6 @@
 - (IBAction)didTapClose:(id)sender;
 - (IBAction)didTapTweet:(id)sender;
 
-
-
 @end
 
 @implementation ComposeViewController

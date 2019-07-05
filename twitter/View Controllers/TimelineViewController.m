@@ -162,6 +162,8 @@
         
         DetailsViewController *detailsViewController = [segue destinationViewController]; //returns a UIViewController, which DetailsViewController is a subclass of
         detailsViewController.tweet = tweet;
+        [self addChildViewController:detailsViewController];
+        detailsViewController.delegate = self;
         NSLog(@"Tapping on a tweet!");
     }
     else if ([segue.identifier isEqualToString:@"segueToCompose"]) {
@@ -191,6 +193,10 @@
     LoginViewController *loginViewController = [storyboard instantiateViewControllerWithIdentifier:@"LoginViewController"];
     appDelegate.window.rootViewController = loginViewController;
     [[APIManager shared] logout];
+}
+
+- (void)updateData:(nonnull UIViewController *)viewController {
+    [self.tableView reloadData];
 }
 
 @end

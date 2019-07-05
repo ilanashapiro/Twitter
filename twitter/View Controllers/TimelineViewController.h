@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DetailsViewController.h"
 
-@interface TimelineViewController : UIViewController
+@interface TimelineViewController : UIViewController <DataEnteredDelegate>
 
 @end
