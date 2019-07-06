@@ -122,8 +122,6 @@
     }
 }
 
-- (IBAction)didTapReply:(id)sender {
-}
 
 - (IBAction)didTapRetweet:(id)sender {
     if (!self.tweet.retweeted) {

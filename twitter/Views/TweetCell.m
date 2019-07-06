@@ -51,9 +51,17 @@
 //        [self.didRetweetButton setTitle:retweetedText forState:UIControlStateNormal];
 //        self.didRetweetButton.hidden = NO;
     }
-
     else {
         self.didRetweetButton.hidden = YES;
+    }
+    
+    if (![tweet.inReplyToScreenName isEqual:[NSNull null]]) {
+        self.didReplyLabel.hidden = NO;
+        NSLog(@"in reply to %@", tweet.inReplyToScreenName);
+        self.didReplyLabel.text = [NSString stringWithFormat:@"%@ %@", @"In reply to @", tweet.inReplyToScreenName];
+    }
+    else {
+        self.didReplyLabel.hidden = YES;
     }
 
     [self.profileImageView setImageWithURL:tweet.user.profileImageURLHTTPS];
@@ -132,7 +140,7 @@
                 NSString *retweetCountText = [NSString stringWithFormat:@"%d",self.tweet.retweetCount];
                 [self.retweetButton setTitle:retweetCountText forState:UIControlStateNormal];
                 
-                NSString *retweetedText = [NSString stringWithFormat: @"%@ %@", tweet.retweetedByUser.name, @"Retweeted"];
+                NSString *retweetedText = [NSString stringWithFormat: @"%@ %@", tweet.retweetedByUser.name, @"(You) Retweeted"];
                 [self.didRetweetButton setTitle:retweetedText forState:UIControlStateNormal];
                 //NSLog(@"retweeted text: %@", retweetedText);
                 self.didRetweetButton.hidden = NO;
@@ -205,8 +213,8 @@
         else{
             NSLog(@"Auth user info is a %@", NSStringFromClass([userInfoDict class]));
             NSLog(@"Auth user name info in block: %@", userInfoDict[@"name"]);
-            NSString *retweetedText = [NSString stringWithFormat: @"%@ %@", userInfoDict[@"name"], @"Retweeted"];
-            [self.didRetweetButton setTitle:retweetedText forState:UIControlStateNormal];
+            NSString *retweetedText = [NSString stringWithFormat: @"%@ %@", userInfoDict[@"name"], @"(You) Retweeted"];
+            [self.didRetweetButton setTitle:[NSString stringWithFormat:@"%@", retweetedText] forState:UIControlStateNormal];
             self.didRetweetButton.hidden = NO;
         }
     }];

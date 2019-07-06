@@ -14,6 +14,7 @@
 @interface ReplyViewController ()
 
 @property (weak, nonatomic) IBOutlet UITextView *replyTextView;
+@property (weak, nonatomic) IBOutlet UILabel *characterCountLabel;
 
 - (IBAction)didTapClose:(id)sender;
 - (IBAction)didTapReply:(id)sender;
@@ -25,7 +26,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    self.replyTextView.delegate = self;
 }
 
 /*
@@ -55,7 +57,28 @@
         [self dismissViewControllerAnimated:true completion:nil];
     }];
 }
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
+    // Set the max character limit
+    int characterLimit = 140;
+    
+    // Construct what the new text would be if we allowed the user's latest edit
+    NSString *newText = [self.replyTextView.text stringByReplacingCharactersInRange:range withString:text];
+    
+    // TODO: Update Character Count Label
+    int remainingCharacters = characterLimit - newText.length;
+    if (remainingCharacters >= 0) {
+        self.characterCountLabel.text = [NSString stringWithFormat:@"Characters remaining: %d", remainingCharacters];
+    }
+    
+    
+    // The new text should be allowed? True/False
+    return newText.length <= characterLimit;
+}
+
 @end
+
+
 
 
 /*postStatusWithText:self.replyTextView.text completion:^(Tweet *tweet, NSError *error) {
