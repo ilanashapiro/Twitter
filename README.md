@@ -2,7 +2,7 @@
 
 **Twitter** is a basic twitter app to read and compose tweets the [Twitter API](https://apps.twitter.com/).
 
-Time spent: **X** hours spent in total
+Time spent: **26** hours spent in total
 
 ## User Stories
 
@@ -44,10 +44,11 @@ The following **additional** features are implemented:
 When a user retweets, their name appears in the "who retweeted" text at the top. An example is "Ilana Shapiro (You) Retweeted", where "Ilana Shapiro" is the name that changes with the current user. I did this with a GET request to 1.1/account/verify_credentials.json
 
 - [ ] List anything else that you can get done to improve the app functionality!
+I would have liked to implement some features of the profile view page.
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
-1.
-2.
+1. Working through create GET and POST requests in some more detail
+2. How to actually show replies in the same cell as the post
 
 ## Video Walkthrough
 
