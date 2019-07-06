@@ -45,7 +45,7 @@
     else {
         self.didRetweetButton.hidden = YES;
     }
-    
+
     if (![tweet.inReplyToScreenName isEqual:[NSNull null]]) {
         self.didReplyLabel.hidden = NO;
         self.didReplyLabel.text = [NSString stringWithFormat:@"%@ %@", @"In reply to @", tweet.inReplyToScreenName];
