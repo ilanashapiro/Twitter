@@ -33,7 +33,7 @@
     // Construct what the new text would be if we allowed the user's latest edit
     NSString *newText = [self.tweetTextView.text stringByReplacingCharactersInRange:range withString:text];
     
-    // TODO: Update Character Count Label
+    //Update Character Count Label
     int remainingCharacters = characterLimit - newText.length;
     if (remainingCharacters >= 0) {
         self.characterCountLabel.text = [NSString stringWithFormat:@"Characters remaining: %d", remainingCharacters];

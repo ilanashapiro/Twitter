@@ -27,7 +27,6 @@
 
 - (IBAction)didTapRetweet:(id)sender;
 - (IBAction)didTapLike:(id)sender;
-- (IBAction)didTapReply:(id)sender;
 
 
 @end
@@ -45,7 +44,6 @@
     [super viewWillDisappear:animated];
     if ([self isMovingFromParentViewController]) {
         [self.delegate updateData:self];
-        NSLog(@"Updated parent home timeline views from child detail view.");
     }
 }
 

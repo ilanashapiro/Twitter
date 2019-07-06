@@ -49,33 +49,15 @@ static NSString * const consumerSecret = @"s5ynGqXzstUZwFPxVyMDkYh197qvHOcVM3kwv
 }
 
 - (void)getHomeTimelineWithCompletion:(void(^)(NSArray *tweets, NSError *error))completion {
-    //Open APIManager.m. Before, the method in the starter code used the completion block with an array of dictionaries. We want to modify it to pass an array of Tweets instead.
-    // Create a GET Request
-//    [self GET:@"1.1/statuses/home_timeline.json"
-//   parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSArray *  _Nullable tweetDictionaries) {
-//       // Success
-//       NSMutableArray *tweets  = [Tweet tweetsWithArray:tweetDictionaries];
-//       completion(tweets, nil);
-//   } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-//       // There was a problem
-//       completion(nil, error);
-//   }];
-    
     [self GET:@"1.1/statuses/home_timeline.json"
    parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSArray *  _Nullable tweetDictionaries) {
 
     // Manually cache the tweets. If the request fails, restore from cache if possible.
-    NSMutableArray *tweets  = [Tweet tweetsWithArray:tweetDictionaries];
-//       NSLog(@"tweets array from getHomeTimelineWithCompletion is: %@", tweets);
-       //for (Tweet *tweet in tweets) {
-           //NSString *text = dictionary[@"text"];
-           //NSLog(@"Name: %@. Username: %@. Tweet text: %@. Retweeted by user: %d. Liked by user: %d.", tweet.user.name, tweet.user.screenName, tweet.text, tweet.retweeted, tweet.favorited);
-       //}
-//       NSLog(@"------------------------------------------------------------------------------------------------------------------------------------------");
-       NSData *data = [NSKeyedArchiver archivedDataWithRootObject:tweetDictionaries];
+        NSMutableArray *tweets  = [Tweet tweetsWithArray:tweetDictionaries];
+        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:tweetDictionaries];
        [[NSUserDefaults standardUserDefaults] setValue:data forKey:@"hometimeline_tweets"];
 
-       //5. API manager calls the completion handler passing back data
+       //API manager calls the completion handler passing back data
        completion(tweets, nil);
 
    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -88,7 +70,7 @@ static NSString * const consumerSecret = @"s5ynGqXzstUZwFPxVyMDkYh197qvHOcVM3kwv
            tweets = [NSKeyedUnarchiver unarchiveObjectWithData:data];
        }
        
-       //5. API manager calls the completion handler passing back data
+       //API manager calls the completion handler passing back data
        completion(tweets, error);
    }];
 }
@@ -103,54 +85,23 @@ static NSString * const consumerSecret = @"s5ynGqXzstUZwFPxVyMDkYh197qvHOcVM3kwv
     [self GET:originalTweetURLString
    parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *  _Nullable tweetDictionary) {
        // Success
-       //Tweet *tweet = [[Tweet alloc] initWithDictionary:tweetDictionary];
-       completion(tweetDictionary, nil);
+        completion(tweetDictionary, nil);
        
    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
        // There was a problem
        completion(nil, error);
    }];
-    
-    /*[self GET:[NSString stringWithFormat:@"https://api.twitter.com/1.1/statuses/show/ + json?include_my_retweet=1"]
-   parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSArray *  _Nullable userDictionaries) {
-       
-    
-       NSMutableArray *userData = [User usersWithArray:userDictionaries];
-       
-       NSData *data = [NSKeyedArchiver archivedDataWithRootObject:userDictionaries];
-       [[NSUserDefaults standardUserDefaults] setValue:data forKey:@"auth_user_data"];
-       
-       //5. API manager calls the completion handler passing back data
-       completion(userData, nil);
-       
-   } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-       
-       NSMutableArray *userData = nil;
-       
-       // Fetch tweets from cache if possible
-       NSData *data = [[NSUserDefaults standardUserDefaults] valueForKey:@"auth_user_data"];
-       if (data != nil) {
-           userData = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-       }
-       
-       //5. API manager calls the completion handler passing back data
-       completion(userData, error);
-   }];*/
 }
 
 - (void)getUserCredentialsWithCompletion:(void(^)(NSDictionary *userInfoDict, NSError *error))completion {
     [self GET:@"1.1/account/verify_credentials.json"
    parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary * _Nullable userInfoDict) {
        completion(userInfoDict, nil);
-       
    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
        // There was a problem
        completion(nil, error);
    }];
 }
-
-
-
 
 - (void)postStatusWithText:(NSString *)text completion:(void (^)(Tweet *, NSError *))completion{
     NSString *urlString = @"1.1/statuses/update.json";
@@ -165,6 +116,7 @@ static NSString * const consumerSecret = @"s5ynGqXzstUZwFPxVyMDkYh197qvHOcVM3kwv
 }
 
 - (void)postRequestUrl:(NSString *)urlString parameters:(NSDictionary *)parameters completion:(void (^)(Tweet *, NSError *))completion{
+    //A method for post requests about tweets used as a helper method for the methods below to avoid repeating code
     [self POST:urlString parameters:parameters progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSDictionary *  _Nullable tweetDictionary) {
         Tweet *tweet = [[Tweet alloc]initWithDictionary:tweetDictionary];
             completion(tweet, nil);
@@ -199,41 +151,9 @@ static NSString * const consumerSecret = @"s5ynGqXzstUZwFPxVyMDkYh197qvHOcVM3kwv
 }
 
 - (void)unRetweet:(Tweet *)tweet completion:(void (^)(Tweet *, NSError *))completion{
-//    NSString __block *tweetID = nil;
-//    [self tweet:tweet getFinalRetweet:^(NSDictionary *tweetDict, NSError *error) {
-//        tweetID = tweetDict[@"current_user_retweet"][@"id_str"];
-//    }];
-//    NSLog(@"%@", tweetID);
-//    NSString *urlString = @"https://api.twitter.com/1.1/statuses/destroy.json";
-    
     NSString *urlString = [NSString stringWithFormat:@"1.1/statuses/unretweet/%@.json", tweet.idStr];
     NSDictionary *parameters = @{@"id": tweet.idStr};
-//    NSDictionary *parameters = @{@"id": tweetID};
     [self postRequestUrl:urlString parameters:parameters completion:completion];
-//    if(tweet.retweeted) {
-//        return;
-//    }
-//    else {
-//        NSString *fullTweetURLString = [NSString stringWithFormat:@"%@%@%@", @"https://api.twitter.com/1.1/statuses/show/", tweet.idStr, @"json?include_my_retweet=1"];
-//
-//        [self GET:fullTweetURLString
-//       parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, NSArray *  _Nullable tweetDictionaries) {
-//           NSMutableArray *tweets  = [Tweet tweetsWithArray:tweetDictionaries];
-//           completion(tweets, nil);
-//
-//       } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-//           NSMutableArray *tweets = nil;
-//           if (data != nil) {
-//               tweets = [NSKeyedUnarchiver unarchiveObjectWithData:data];
-//           }
-//           completion(tweets, error);
-//       }];
-//
-//
-//        NSString *urlString = [NSString stringWithFormat:@"1.1/statuses/unretweet/%@.json", fullTweet.idStr];
-//        NSDictionary *parameters = @{@"id": tweet.idStr};
-//        [self postRequestTweet:tweet url:urlString parameters:parameters completion:completion];
-//    }
 }
 
 

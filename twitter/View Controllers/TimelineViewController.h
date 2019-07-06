@@ -11,7 +11,7 @@
 
 @interface TimelineViewController : UIViewController
 
-@property (weak, nonatomic) IBOutlet UITableView *tableView;  //1. View controller has a tableView as a subview
+@property (weak, nonatomic) IBOutlet UITableView *tableView;  //View controller has a tableView as a subview
 @property (strong, nonatomic) NSArray *tweetArray;
 
 @end

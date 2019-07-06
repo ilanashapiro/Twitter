@@ -30,18 +30,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-//    //FROM EXAMPLE:
-//    [[APIManager shared] getUser:^(User *user, NSError error) {
-//         if(user) {
-//             self.user = (User *)user;
-//         }
-//         else {
-//             NSLog(@"error getting user: %@", error.localizedDescription);
-//         }
-//    }];
-    
-    //3. View controller becomes its (the custom table view cell) dataSource and delegate in viewDidLoad
-//    self.tableView.rowHeight = UITableViewAutomaticDimension;
+    //View controller becomes its (the custom table view cell) dataSource and delegate in viewDidLoad
     self.tableView.dataSource = self; //set data source equal to the view controller (self). once you're scrolling and want to show cells, use self for the data source methods
     self.tableView.delegate = self; //set delegate equal to the view controller (self). delegate can help handle touch events, multiselect, swiping, etc if you implement these optional functions
     
@@ -51,26 +40,17 @@
 }
 
 - (void)getTimeline {
-    // Get timeline
-    
-    //4. Make an API request
+    //Make an API request
     [[APIManager shared] getHomeTimelineWithCompletion:^(NSArray *tweets, NSError *error) {
         if (tweets) {
             NSLog(@"😎😎😎 Successfully loaded home timeline");
             
-            //6. View controller stores that data passed into the completion handler
+            //View controller stores that data passed into the completion handler
             self.tweetArray = tweets;
             
-            //7. Reload the table view
-            //8. Table view asks its dataSource for numberOfRows & cellForRowAt
+            //Reload the table view
+            //Table view asks its dataSource for numberOfRows & cellForRowAt
             [self.tableView reloadData]; //call data source methods again as underlying data (self.tweetArray) may have changed
-            
-            //NSLog(@"%@", tweets);
-            //            for (Tweet *tweet in tweets) {
-            ////                NSString *name = tweet.user.name;
-            ////                NSLog(@"%@", name);
-            //                NSLog(@"Name: %@. Username: %@. Tweet text: %@. Image URL: %@", tweet.user.name, tweet.user.screenName, tweet.text, tweet.user.profileImageURL);
-            //            }
         } else {
             NSLog(@"😫😫😫 Error getting home timeline: %@", error.localizedDescription);
         }
@@ -91,7 +71,7 @@
 }
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath {
-    //10. cellForRow returns an instance of the custom cell with that reuse identifier with it’s elements populated with data at the index asked for
+    //cellForRow returns an instance of the custom cell with that reuse identifier with it’s elements populated with data at the index asked for
     
     TweetCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TweetCell"];
 
@@ -102,11 +82,7 @@
 }
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    //9. numberOfRows returns the number of items returned from the API
-
-//    NSLog(@"tweetArray is %@", self.tweetArray);
-//    NSLog(@"tweetArray is a %@", NSStringFromClass([self.tweetArray class]));
-//    NSLog(@"tweetArray.count is %lu", self.tweetArray.count);
+    //numberOfRows returns the number of items returned from the API
     return self.tweetArray.count;
 }
 
@@ -120,11 +96,6 @@
         UITableViewCell *tappedCell = sender;
         NSIndexPath *indexPath = [self.tableView indexPathForCell:tappedCell];
         Tweet *tweet = self.tweetArray[indexPath.row];
-        
-        //code to make cell change color when tapped. although it'll need code to tell it to go back to normal after you go back.
-//        UIView *backgroundView = [[UIView alloc] init];
-//        backgroundView.backgroundColor = UIColor.yellowColor;
-//        tappedCell.selectedBackgroundView = backgroundView;
         
         DetailsViewController *detailsViewController = [segue destinationViewController]; //returns a UIViewController, which DetailsViewController is a subclass of
         detailsViewController.tweet = tweet;
@@ -147,18 +118,12 @@
 }
 
 - (void)didTweet:(nonnull Tweet *)tweet {
-    //NSLog(@"New tweet text is: %@", tweet.text);
-    
-    /*NSArray *newTweetArray = [[NSArray alloc] initWithObjects:tweet, nil]; //create array from tweet object in order to add to the front of self.tweetArray
+    NSArray *newTweetArray = [[NSArray alloc] initWithObjects:tweet, nil]; //create array from tweet object in order to add to the front of self.tweetArray
     self.tweetArray = [newTweetArray arrayByAddingObjectsFromArray:self.tweetArray];
 
     newTweetArray = nil;
-//    for (id elem in self.tweetArray) {
-//        NSLog(@"%@", elem.text);
-//    }
-//
-    [self.tableView reloadData];*/
-    [self getTimeline];
+
+    [self.tableView reloadData];
 }
 
 - (IBAction)didTapLogout:(id)sender {

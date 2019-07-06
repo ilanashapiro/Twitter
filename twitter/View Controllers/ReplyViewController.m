@@ -19,7 +19,6 @@
 - (IBAction)didTapClose:(id)sender;
 - (IBAction)didTapReply:(id)sender;
 
-
 @end
 
 @implementation ReplyViewController
@@ -29,16 +28,6 @@
     
     self.replyTextView.delegate = self;
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 - (IBAction)didTapClose:(id)sender {
     [self dismissViewControllerAnimated:true completion:nil];
@@ -65,28 +54,13 @@
     // Construct what the new text would be if we allowed the user's latest edit
     NSString *newText = [self.replyTextView.text stringByReplacingCharactersInRange:range withString:text];
     
-    // TODO: Update Character Count Label
     int remainingCharacters = characterLimit - newText.length;
     if (remainingCharacters >= 0) {
         self.characterCountLabel.text = [NSString stringWithFormat:@"Characters remaining: %d", remainingCharacters];
     }
-    
     
     // The new text should be allowed? True/False
     return newText.length <= characterLimit;
 }
 
 @end
-
-
-
-
-/*postStatusWithText:self.replyTextView.text completion:^(Tweet *tweet, NSError *error) {
- if(error){
- NSLog(@"Error composing Tweet: %@", error.localizedDescription);
- }
- else{
- [self.delegate didTweet:tweet];
- NSLog(@"Compose Tweet Success!");
- }
- [self dismissViewControllerAnimated:true completion:nil];*/

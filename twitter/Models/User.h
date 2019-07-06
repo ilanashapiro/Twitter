@@ -12,7 +12,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface User : NSObject
 
-//There are many properties for a given user, however we’ll start with the minimum needed for displaying a User (name & screen name)
 @property (strong, nonatomic) NSString *name;
 @property (strong, nonatomic) NSString *screenName;
 @property (strong, nonatomic) NSURL *profileImageURLHTTPS;

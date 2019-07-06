@@ -315,7 +315,7 @@
                                 <action selector="didTapClose:" destination="6gD-Lu-guP" id="NK0-Qb-5g0"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Item" image="reply-icon" id="56L-gy-dFb">
+                        <barButtonItem key="rightBarButtonItem" title="Reply" id="56L-gy-dFb">
                             <connections>
                                 <action selector="didTapReply:" destination="6gD-Lu-guP" id="OBB-Cm-IWr"/>
                             </connections>
@@ -608,7 +608,6 @@
         <!--Navigation Controller-->
         <scene sceneID="7Bu-7K-jMN">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="29Y-VX-kb3" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="QCV-Ju-b8F" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="joM-dM-S6b">
@@ -620,6 +619,7 @@
                         <segue destination="6gD-Lu-guP" kind="relationship" relationship="rootViewController" id="TRQ-Zz-enW"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="29Y-VX-kb3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2852" y="37"/>
         </scene>
